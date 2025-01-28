@@ -43,7 +43,7 @@ t$dat <- t$dat |>
 # t$phy holds the phylogeny
 tree <- t$phy
 
-# fore the tree to be ultrametric for visualization
+# force the tree to be ultrametric for visualization
 um_tree <- force.ultrametric(tree)
 plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Primate Phylogeny")
 # now tips are aligned
@@ -67,6 +67,7 @@ for (i in 1:length(clades$clade)) {
   )
 }
 
+# code below is to get nodes for MRCA of each Genus
 # make dataframe for clade nodes
 genus_clades <- tibble(
   clade = c(unique(d$Genus)),
@@ -74,7 +75,7 @@ genus_clades <- tibble(
 ) |>
   filter(!is.na(clade))
 
-#Find the most recent common ancestor for each clade
+# find the most recent common ancestor for each clade
 for (i in 1:length(genus_clades$clade)) {
   genus_clades$node[i] <- MRCA(
     tree,
@@ -82,6 +83,7 @@ for (i in 1:length(genus_clades$clade)) {
   )
 }
 
+# plot SM Figure 2
 colors <- c("red", "blue", "maroon", "skyblue", "green", "orange")
 
 p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
@@ -111,42 +113,8 @@ p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
 
 p
 
-#
-# clades <- tibble(
-#   node =c(458, 453, 449, 448, 434, 431,
-#           331, 327, 342, 312, 315, 414,
-#           409, 384, 406, 378, 382, 380,
-#           405, 401, 397, 395, 388, 283,
-#           279, 294, 246, 247, 300, 306,
-#           308, 368, 371, 373, 365, 357,
-#           355, 350, 345, 343, 250, 252,
-#           253, 260, 262, 267, 268, 275),
-#   genus = c("Macaca", "Papio", "Cercocebus", "Mandrillus", "Cercopithecus", "Allochrocebus", "Alouatta", "Ateles", "Sapajus", "Cheracebus", "Plecturocebus", "Trachypithecus", "Semnopithecus", "Nomascus", "Pygathrix",  "Pongo", "Pan", "Gorilla", "Rhinopithecus", "Presbytis", "Piliocolobus", "Colobus", "Hylobates", "Eulemur", "Hapalemur", "Tarsius", "Galago", "Otolemur", "Pithecia", "Chiropotes", "Cacajao", "Callithrix", "Cebuella", "Mico", "Leontopithecus", "Saguinus", "Leontocebus", "Aotus", "Saimiri", "Cebus", "Perodicticus", "Loris", "Nycticebus", "Cheirogaleus", "Lepilemur", "Avahi", "Propithecus","Varecia"))
-#
-# p1 <- p
-# for (i in 1:nrow(clades)){
-#   p1 <- collapse(p1, node = clades[i,]$node, mode = "max", clade_name = clades[i,]$genus, alpha = 1, color = "grey", fill = "light blue", size = 1)
-#   p1 <- p1 + geom_cladelab(node=clades[i,]$node, label=clades[i,]$genus, fontsize = 2, horizontal = FALSE, geom = "label", align = TRUE, extend = 1, offset = 1)
-# }
-#
-# p1
-#
-#
-# collapsed_tree <-
-#   purrr::reduce(
-#     genNodes$node,
-#     \(x,y) collapse(x,y,mode = "max",fill="transparent",
-#                     color="black",size=0.1,),
-#     .init = p
-#   )
-#
-# collapsed_tree +
-#   geom_cladelab(node=35, label="test label", angle=0,
-#                 fontsize=8, offset=.5, vjust=.5)
-
-# Load Character Data -----
-setwd("/Users/ad26693/Desktop/Active Sync/Current Writing/Annual Reviews - Evolution of Primate Social Systems/Olivier et al 2024 data")
-dataG <- read_csv("dataG.csv", col_names = TRUE)
+# load Character Data -----
+dataG <- read_csv("Olivier et al 2024 data/dataG.csv", col_names = TRUE)
 my_data <- dataG |>
   rowwise() |>
   mutate(`Genus` = str_split(`Genus_species`, "_")[[1]][1]) |>
@@ -155,7 +123,7 @@ my_data <- dataG |>
   filter(sp.pop == "sp") |>
   select(Genus, Genus_species,  Common_name, superfamily, IVSO, main_SO, calculation_main_SO, Main2, foraging_style)
 
-write_csv(my_data, "my_data.csv")
+write_csv(my_data, "my_data.csv") # update data
 
 outgroup <- my_data |>
   filter(superfamily == "Lorisoidea" | superfamily == "Lemuroidea") |>
@@ -165,9 +133,9 @@ summary <- my_data |>
   group_by(Genus, main_SO) |>
   summarize(count = n())
 
-# Load Phylogenies ----
+# Load phylogenies from Olivier et al----
 # multiple to capture uncertainty
-trees = read.nexus("vert phylo.nex")
+trees = read.nexus("Olivier et al 2024 data/vert phylo.nex")
 
 # create consensus phylogeny for robustness checks
 
@@ -176,15 +144,16 @@ is.rooted.phylo(my_tree)
 my_tree <- root(my_tree, outgroup = outgroup, resolve.root = TRUE)
 is.rooted.phylo(my_tree)
 is.binary(my_tree)
-my_tree <- multi2di(my_tree)
+my_tree <- multi2di(my_tree) # force tree to be binary
 is.binary(my_tree)
 
-p <- ggtree(my_tree, size = 0.1) + geom_tiplab(size = 2)
-
-p <- p + geom_text(aes(label=node), size = 2)
+p <- ggtree(my_tree, size = 0.1) +
+  geom_tiplab(size = 2) +
+  geom_text(aes(label=node), size = 2)
 
 p
 
+# make tree into treedata.table object
 t <- as.treedata.table(tree = my_tree, data = as.data.frame(my_data))
 
 # Filter Taxa ----
@@ -192,14 +161,13 @@ t <- as.treedata.table(tree = my_tree, data = as.data.frame(my_data))
 
 data_subset <- my_data |>
   group_by(Genus) |>
-  sample_n(size = 1, replace = FALSE) |>
+  sample_n(size = 1, replace = FALSE) |> # sample 1 species per genus
   pull(`Genus_species`)
-
 td <- t[tip.label %in% data_subset,]
 
 # or, use all...
-
 td <- t
+
 # Set up dataset ----
 character_data <- td$dat$main_SO
 character_data <- case_when(
@@ -286,6 +254,7 @@ nodepies <- apply(likelihoods[, 1:dim(likelihoods)[2] - 1], 1, function(row) {
 colnames(nodepies) <- 1:um_tree$Nnode+Ntip(um_tree)
 
 plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Phylogenetic Tree with Ancestral State Reconstruction")
+
 nodelabels(pie = t(nodepies), piecol = colors, cex = 0.4)
 
 tippies <- as.factor(character_data)
