@@ -113,7 +113,8 @@ p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
 
 p
 
-# load Character Data -----
+# Olivier et al Data -----
+# load Character Data
 dataG <- read_csv("Olivier et al 2024 data/dataG.csv", col_names = TRUE)
 my_data <- dataG |>
   rowwise() |>
@@ -121,7 +122,7 @@ my_data <- dataG |>
   ungroup() |>
   mutate(main_SO = Main1) |>
   filter(sp.pop == "sp") |>
-  select(Genus, Genus_species,  Common_name, superfamily, IVSO, main_SO, calculation_main_SO, Main2, foraging_style)
+  select(Genus, Genus_species,  Common_name, superfamily, IVSO, main_SO, calculation_main_SO, Main2, foraging_style, Activity_pattern)
 
 write_csv(my_data, "my_data.csv") # update data
 
@@ -208,7 +209,7 @@ likelihoods_long <- likelihoods |>
 
 # ----
 # Get tree data and ensure node numbering consistency
-tree_data <- fortify(tree)  # This should work now
+tree_data <- fortify(tree)
 tree_data$parent <- as.numeric(tree_data$parent)  # Ensure node numbers are numeric
 likelihoods$node <- as.numeric(likelihoods$node)  # Ensure node numbers are numeric
 
@@ -241,9 +242,6 @@ likelihoods_long <- likelihoods_long |>
 
 pies <- nodepie(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
 bars <- nodebar(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
-
-# p1 <- p + geom_inset(pies, width = 0.05, height = 0.05)
-# p2 <- p + geom_inset(bars, width = 0.03, height = 0.02, x = "node")
 
 # Visualize the tree with reconstructed states using phylo.plot
 # Use pie charts to display state probabilities at internal nodes

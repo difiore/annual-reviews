@@ -1,0 +1,363 @@
+Family,Species,Genus,3 state (SPG),4 state (SPUM),Shultz,C&L
+Aotidae,Aotus azarae,Aotus,P,P,P,P
+Aotidae,Aotus griseimembra,Aotus,P,P,,
+Aotidae,Aotus infulatus,Aotus,P,P,P,
+Aotidae,Aotus lemurinus,Aotus,P,P,P,P
+Aotidae,Aotus nancymaae,Aotus,P,P,P,P
+Aotidae,Aotus nigriceps,Aotus,P,P,,P
+Aotidae,Aotus trivirgatus,Aotus,P,P,P,P
+Aotidae,Aotus vociferans,Aotus,P,P,,P
+Atelidae,Alouatta belzebul,Alouatta,G,"UM, MM",,G
+Atelidae,Alouatta caraya,Alouatta,"P, G","P, UM, MM","UM, MM",G
+Atelidae,Alouatta coibensis,Alouatta,G,"UM, MM",,G
+Atelidae,Alouatta guariba,Alouatta,"P, G","P, UM, MM",,G
+Atelidae,Alouatta macconnelli,Alouatta,G,"UM, MM",,G
+Atelidae,Alouatta nigerrima,Alouatta,G,UM,,G
+Atelidae,Alouatta palliata,Alouatta,"P, G","P, UM, MM","UM, MM",G
+Atelidae,Alouatta pigra,Alouatta,"P, G","P, UM, MM","UM, MM",G
+Atelidae,Alouatta sara,Alouatta,G,UM,"UM, MM",G
+Atelidae,Alouatta seniculus,Alouatta,G,"UM, MM","UM, MM",G
+Atelidae,Ateles belzebuth,Ateles,G,MM,MM,G
+Atelidae,Ateles chamek,Ateles,G,MM,,G
+Atelidae,Ateles fusciceps,Ateles,G,MM,,G
+Atelidae,Ateles geoffroyi,Ateles,G,MM,MM,G
+Atelidae,Ateles hybridus,Ateles,G,MM,,G
+Atelidae,Ateles marginatus,Ateles,G,MM,,G
+Atelidae,Ateles paniscus,Ateles,G,MM,MM,G
+Atelidae,Brachyteles arachnoides,Brachyteles,G,MM,MM,G
+Atelidae,Brachyteles hypoxanthus,Brachyteles,G,MM,,G
+Atelidae,Lagothrix cana,Lagothrix,G,MM,,G
+Atelidae,Lagothrix lagotricha,Lagothrix,G,MM,MM,G
+Atelidae,Lagothrix lugens,Lagothrix,G,MM,,G
+Atelidae,Lagothrix poeppigii,Lagothrix,G,MM,,G
+Cebidae,Callimico goeldii,Callimico,G,MM,"P, UM, MM",G
+Cebidae,Callithrix argentata,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix aurita,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix emiliae,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix geoffroyi,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix humeralifera,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix humilis,Callithrix,G,MM,,
+Cebidae,Callithrix jacchus,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix kuhlii,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix mauesi,Callithrix,G,MM,,
+Cebidae,Callithrix penicillata,Callithrix,G,MM,"P, UM, MM",P
+Cebidae,Callithrix pygmaea,Callithrix,G,UM,"P, UM, MM",P
+Cebidae,Callithrix saterei,Callithrix,G,MM,,
+Cebidae,Cebus albifrons,Cebus,G,MM,MM,G
+Cebidae,Cebus apella,Cebus,G,MM,MM,G
+Cebidae,Cebus capucinus,Cebus,G,MM,MM,G
+Cebidae,Cebus kaapori,Cebus,G,MM,,
+Cebidae,Cebus libidinosus,Cebus,G,MM,,G
+Cebidae,Cebus olivaceus,Cebus,G,MM,,G
+Cebidae,Cebus robustus,Cebus,G,MM,,
+Cebidae,Cebus xanthosternos,Cebus,G,MM,,G
+Cebidae,Leontopithecus chrysomelas,Leontopithecus,"P, G","P, UM, MM","P, UM, MM",P
+Cebidae,Leontopithecus chrysopygus,Leontopithecus,"P, G","P, MM","P, UM, MM",P
+Cebidae,Leontopithecus rosalia,Leontopithecus,G,"UM, MM","P, UM, MM",P
+Cebidae,Saguinus bicolor,Saguinus,G,MM,,P
+Cebidae,Saguinus fuscicollis,Saguinus,G,"UM, MM","P, UM, MM",P
+Cebidae,Saguinus geoffroyi,Saguinus,G,MM,"P, UM, MM",P
+Cebidae,Saguinus graellsi,Saguinus,G,MM,,P
+Cebidae,Saguinus imperator,Saguinus,G,"UM, MM","P, UM, MM",P
+Cebidae,Saguinus labiatus,Saguinus,G,MM,,P
+Cebidae,Saguinus leucopus,Saguinus,G,MM,,P
+Cebidae,Saguinus martinsi,Saguinus,G,MM,,P
+Cebidae,Saguinus melanoleucus,Saguinus,G,MM,,P
+Cebidae,Saguinus midas,Saguinus,G,"UM, MM","P, UM, MM",P
+Cebidae,Saguinus mystax,Saguinus,G,"UM, MM",,P
+Cebidae,Saguinus niger,Saguinus,G,MM,,P
+Cebidae,Saguinus nigricollis,Saguinus,"P, G","P, MM",,P
+Cebidae,Saguinus oedipus,Saguinus,G,MM,"P, UM, MM",P
+Cebidae,Saguinus tripartitus,Saguinus,G,MM,,P
+Cebidae,Saimiri boliviensis,Saimiri,G,MM,MM,G
+Cebidae,Saimiri oerstedii,Saimiri,G,MM,MM,G
+Cebidae,Saimiri sciureus,Saimiri,G,MM,MM,G
+Cebidae,Saimiri ustus,Saimiri,G,MM,,G
+Cercopithecidae,Allenopithecus nigroviridis,Allenopithecus,G,MM,MM,G
+Cercopithecidae,Cercocebus agilis,Cercocebus,G,"UM, MM",MM,G
+Cercopithecidae,Cercocebus atys,Cercocebus,G,MM,MM,G
+Cercopithecidae,Cercocebus chrysogaster,Cercocebus,G,MM,,G
+Cercopithecidae,Cercocebus galeritus,Cercocebus,G,"UM, MM",MM,G
+Cercopithecidae,Cercocebus torquatus,Cercocebus,G,MM,MM,G
+Cercopithecidae,Cercopithecus albogularis,Cercopithecus,G,UM,,G
+Cercopithecidae,Cercopithecus ascanius,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus campbelli,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus cephus,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus diana,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus erythrogaster,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus erythrotis,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus hamlyni,Cercopithecus,G,"UM, MM",UM,G
+Cercopithecidae,Cercopithecus lhoesti,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus mitis,Cercopithecus,G,UM,"UM, MM",G
+Cercopithecidae,Cercopithecus mona,Cercopithecus,G,"UM, MM",UM,G
+Cercopithecidae,Cercopithecus neglectus,Cercopithecus,"P, G","P, UM","P, UM",G
+Cercopithecidae,Cercopithecus nictitans,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus petaurista,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus pogonias,Cercopithecus,G,UM,,G
+Cercopithecidae,Cercopithecus preussi,Cercopithecus,G,"UM, MM",UM,G
+Cercopithecidae,Cercopithecus solatus,Cercopithecus,G,UM,UM,G
+Cercopithecidae,Cercopithecus wolfi,Cercopithecus,G,"UM, MM",UM,G
+Cercopithecidae,Chlorocebus aethiops,Chlorocebus,G,MM,MM,G
+Cercopithecidae,Chlorocebus cynosuros,Chlorocebus,G,MM,,
+Cercopithecidae,Chlorocebus pygerythrus,Chlorocebus,G,MM,MM,
+Cercopithecidae,Chlorocebus sabaeus,Chlorocebus,G,MM,MM,G
+Cercopithecidae,Chlorocebus tantalus,Chlorocebus,G,MM,MM,
+Cercopithecidae,Colobus angolensis,Colobus,G,MM,"P, UM, MM",G
+Cercopithecidae,Colobus guereza,Colobus,G,MM,"P, UM, MM",G
+Cercopithecidae,Colobus polykomos,Colobus,G,MM,"UM, MM",G
+Cercopithecidae,Colobus satanas,Colobus,G,MM,,G
+Cercopithecidae,Colobus vellerosus,Colobus,G,MM,,G
+Cercopithecidae,Erythrocebus patas,Erythrocebus,G,MM,UM,G
+Cercopithecidae,Lophocebus albigena,Lophocebus,G,MM,MM,G
+Cercopithecidae,Lophocebus aterrimus,Lophocebus,G,MM,MM,G
+Cercopithecidae,Macaca arctoides,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca assamensis,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca brunnescens,Macaca,G,MM,MM,
+Cercopithecidae,Macaca cyclopis,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca fascicularis,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca fuscata,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca hecki,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca leonina,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca maura,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca mulatta,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca munzala,Macaca,G,MM,,
+Cercopithecidae,Macaca nemestrina,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca nigra,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca nigrescens,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca ochreata,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca pagensis,Macaca,G,MM,UM,G
+Cercopithecidae,Macaca radiata,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca siberu,Macaca,G,MM,MM,
+Cercopithecidae,Macaca silenus,Macaca,G,UM,MM,G
+Cercopithecidae,Macaca sinica,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca sylvanus,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca thibetana,Macaca,G,MM,MM,G
+Cercopithecidae,Macaca tonkeana,Macaca,G,MM,MM,G
+Cercopithecidae,Mandrillus leucophaeus,Mandrillus,G,"UM, MM",MM,G
+Cercopithecidae,Mandrillus sphinx,Mandrillus,G,"UM, MM",MM,G
+Cercopithecidae,Miopithecus ogouensis,Miopithecus,G,MM,,
+Cercopithecidae,Miopithecus talapoin,Miopithecus,G,MM,MM,G
+Cercopithecidae,Nasalis larvatus,Nasalis,"P, G","P, UM",UM,G
+Cercopithecidae,Papio anubis,Papio,G,MM,MM,G
+Cercopithecidae,Papio cynocephalus,Papio,G,MM,MM,G
+Cercopithecidae,Papio hamadryas,Papio,G,UM,"UM, MM",G
+Cercopithecidae,Papio papio,Papio,G,MM,MM,G
+Cercopithecidae,Papio ursinus,Papio,G,MM,MM,G
+Cercopithecidae,Piliocolobus badius,Piliocolobus,G,MM,MM,
+Cercopithecidae,Piliocolobus foai,Piliocolobus,G,MM,,
+Cercopithecidae,Piliocolobus gordonorum,Piliocolobus,G,MM,,G
+Cercopithecidae,Piliocolobus kirkii,Piliocolobus,G,MM,,G
+Cercopithecidae,Piliocolobus pennantii,Piliocolobus,G,"UM, MM",G,
+Cercopithecidae,Piliocolobus preussi,Piliocolobus,G,MM,G,
+Cercopithecidae,Piliocolobus rufomitratus,Piliocolobus,G,MM,G,
+Cercopithecidae,Piliocolobus tephrosceles,Piliocolobus,G,MM,G,
+Cercopithecidae,Piliocolobus tholloni,Piliocolobus,G,MM,G,
+Cercopithecidae,Presbytis bicolor,Presbytis,G,UM,,
+Cercopithecidae,Presbytis chrysomelas,Presbytis,G,UM,G,
+Cercopithecidae,Presbytis comata,Presbytis,"P, G","P, UMMM",G,
+Cercopithecidae,Presbytis femoralis,Presbytis,G,UM,G,
+Cercopithecidae,Presbytis fredericae,Presbytis,G,UM,,
+Cercopithecidae,Presbytis frontata,Presbytis,"P, G","P, UM",G,
+Cercopithecidae,Presbytis hosei,Presbytis,G,UM,G,
+Cercopithecidae,Presbytis melalophos,Presbytis,G,"UM, MM","UM, MM G",
+Cercopithecidae,Presbytis mitrata,Presbytis,G,UM,,
+Cercopithecidae,Presbytis potenziani,Presbytis,"P, G","P, UM, MM",G,
+Cercopithecidae,Presbytis rubicunda,Presbytis,G,UM,G,
+Cercopithecidae,Presbytis siberu,Presbytis,G,UM,,
+Cercopithecidae,Presbytis sumatranu,Presbytis,G,UM,,
+Cercopithecidae,Presbytis thomasi,Presbytis,G,"UM, MM",G,
+Cercopithecidae,Procolobus verus,Procolobus,"P, G","P, UM, MM",G,
+Cercopithecidae,Pygathrix cinerea,Pygathrix,G,"UM, MM",,
+Cercopithecidae,Pygathrix nemaeus,Pygathrix,G,"UM, MM","UM, MM G",
+Cercopithecidae,Pygathrix nigripes,Pygathrix,G,UM,,
+Cercopithecidae,Rhinopithecus avunculus,Rhinopithecus,G,"UM, MM",UM,
+Cercopithecidae,Rhinopithecus bieti,Rhinopithecus,G,UM,UM,
+Cercopithecidae,Rhinopithecus brelichi,Rhinopithecus,G,"UM, MM",UM,
+Cercopithecidae,Rhinopithecus roxellana,Rhinopithecus,G,UM,UM,
+Cercopithecidae,Rungwecebus kipunji,Rungwecebus,G,MM,MM,
+Cercopithecidae,Semnopithecus entellus,Semnopithecus,G,"UM, MM","UM, MM G",
+Cercopithecidae,Semnopithecus hector,Semnopithecus,G,"UM, MM",G,
+Cercopithecidae,Semnopithecus priam,Semnopithecus,G,"UM, MM",G,
+Cercopithecidae,Simias concolor,Simias,"P, G","P, UM",G,
+Cercopithecidae,Theropithecus gelada,Theropithecus,G,"UM, MM",UM,
+Cercopithecidae,Trachypithecus auratus,Trachypithecus,G,UM,UM G,
+Cercopithecidae,Trachypithecus barbei,Trachypithecus,G,UM,G,
+Cercopithecidae,Trachypithecus cristatus,Trachypithecus,G,"UM, MM",MM G,
+Cercopithecidae,Trachypithecus delacouri,Trachypithecus,G,UM,G,
+Cercopithecidae,Trachypithecus francoisi,Trachypithecus,G,UM,UM G,
+Cercopithecidae,Trachypithecus geei,Trachypithecus,G,"UM, MM",G,
+Cercopithecidae,Trachypithecus germaini,Trachypithecus,G,MM,G,
+Cercopithecidae,Trachypithecus hatinhensis,Trachypithecus,G,UM,,G
+Cercopithecidae,Trachypithecus johnii,Trachypithecus,G,MM,"UM, MM",G
+Cercopithecidae,Trachypithecus laotum,Trachypithecus,G,UM,,G
+Cercopithecidae,Trachypithecus obscurus,Trachypithecus,G,"UM, MM",MM,G
+Cercopithecidae,Trachypithecus phayrei,Trachypithecus,G,"UM, MM",UM,G
+Cercopithecidae,Trachypithecus pileatus,Trachypithecus,G,"UM, MM",UM,G
+Cercopithecidae,Trachypithecus poliocephalus,Trachypithecus,G,UM,UM,G
+Cercopithecidae,Trachypithecus vetulus,Trachypithecus,G,UM,,G
+Cheirogaleidae,Allocebus trichotis,Allocebus,S,S,"S, P",S
+Cheirogaleidae,Cheirogaleus crossleyi,Cheirogaleus,S,S,,P
+Cheirogaleidae,Cheirogaleus major,Cheirogaleus,S,S,S,P
+Cheirogaleidae,Cheirogaleus medius,Cheirogaleus,P,P,"S, P",P
+Cheirogaleidae,Cheirogaleus sibreei,Cheirogaleus,S,S,,P
+Cheirogaleidae,Microcebus arnholdi,Microcebus,S,S,,
+Cheirogaleidae,Microcebus berthae,Microcebus,S,S,,
+Cheirogaleidae,Microcebus bongolavensis,Microcebus,S,S,,
+Cheirogaleidae,Microcebus danfossi,Microcebus,S,S,,
+Cheirogaleidae,Microcebus gerpi,Microcebus,S,S,,
+Cheirogaleidae,Microcebus griseorufus,Microcebus,S,S,,S
+Cheirogaleidae,Microcebus jollyae,Microcebus,S,S,,
+Cheirogaleidae,Microcebus lehilahytsara,Microcebus,S,S,,
+Cheirogaleidae,Microcebus macarthurii,Microcebus,S,S,,
+Cheirogaleidae,Microcebus mamiratra,Microcebus,S,S,,
+Cheirogaleidae,Microcebus margotmarshae,Microcebus,S,S,,
+Cheirogaleidae,Microcebus mittermeieri,Microcebus,S,S,,
+Cheirogaleidae,Microcebus murinus,Microcebus,S,S,"S, MM",G
+Cheirogaleidae,Microcebus myoxinus,Microcebus,S,S,S,S
+Cheirogaleidae,Microcebus ravelobensis,Microcebus,S,S,"S, MM",
+Cheirogaleidae,Microcebus rufus,Microcebus,S,S,S,S
+Cheirogaleidae,Microcebus sambiranensis,Microcebus,S,S,,
+Cheirogaleidae,Microcebus simmonsi,Microcebus,S,S,,
+Cheirogaleidae,Microcebus tavaratra,Microcebus,S,S,,
+Cheirogaleidae,Mirza coquereli,Mirza,S,S,S,S
+Cheirogaleidae,Mirza zaza,Mirza,S,S,,
+Cheirogaleidae,Phaner pallescens,Phaner,P,P,,P
+Daubentoniidae,Daubentonia madagascariensis,Daubentonia,S,S,S,S
+Galagidae,Euoticus elegantulus,Euoticus,S,S,"S, UM",S
+Galagidae,Galago alleni,Galago,S,S,"S, UM",S
+Galagidae,Galago demidoff,Galago,S,S,"S, P, UM",S
+Galagidae,Galago gabonensis,Galago,S,S,,S
+Galagidae,Galago gallarum,Galago,S,S,S,S
+Galagidae,Galago granti,Galago,S,S,,S
+Galagidae,Galago matschiei,Galago,S,S,,S
+Galagidae,Galago moholi,Galago,S,S,"S, UM",S
+Galagidae,Galago orinus,Galago,S,S,,S
+Galagidae,Galago senegalensis,Galago,S,S,"S, UM",S
+Galagidae,Galago thomasi,Galago,S,S,,S
+Galagidae,Galago zanzibaricus,Galago,P,P,"S, P, UM",S
+Galagidae,Otolemur crassicaudatus,Otolemur,S,S,"S, P, UM",S
+Galagidae,Otolemur garnettii,Otolemur,S,S,S,S
+Galagidae,Otolemur monteiri,Otolemur,S,S,,S
+Hominidae,Gorilla beringei,Gorilla,G,"UM, MM",,G
+Hominidae,Gorilla gorilla,Gorilla,G,UM,"UM, MM",G
+Hominidae,Homo sapiens,Homo,G,MM,MM,
+Hominidae,Pan paniscus,Pan,G,MM,MM,G
+Hominidae,Pan troglodytes,Pan,G,MM,MM,G
+Hominidae,Pongo abelii,Pongo,S,S,"S, MM",S
+Hominidae,Pongo pygmaeus,Pongo,S,S,"S, MM",S
+Hylobatidae,Hoolock hoolock,Hoolock,P,P,P,P
+Hylobatidae,Hoolock leuconedys,Hoolock,P,P,,
+Hylobatidae,Hylobates abbotti,Hylobates,P,P,,
+Hylobatidae,Hylobates agilis,Hylobates,P,P,P,P
+Hylobatidae,Hylobates albibarbis,Hylobates,P,P,,
+Hylobatidae,Hylobates funereus,Hylobates,P,P,,
+Hylobatidae,Hylobates klossii,Hylobates,"P, G","P, MM",P,
+Hylobatidae,Hylobates lar,Hylobates,P,P,P,P
+Hylobatidae,Hylobates moloch,Hylobates,P,P,P,P
+Hylobatidae,Hylobates muelleri,Hylobates,P,P,P,P
+Hylobatidae,Hylobates pileatus,Hylobates,P,P,P,P
+Hylobatidae,Nomascus concolor,Nomascus,"P, G","P, UM",P,
+Hylobatidae,Nomascus gabriellae,Nomascus,P,P,P,
+Hylobatidae,Nomascus hainanus,Nomascus,"P, G","P, UM",,
+Hylobatidae,Nomascus leucogenys,Nomascus,P,P,P,
+Hylobatidae,Nomascus nasutus,Nomascus,"P, G","P, UM",,
+Hylobatidae,Nomascus siki,Nomascus,P,P,,
+Hylobatidae,Symphalangus syndactylus,Symphalangus,"P, G","P, MM",P,P
+Indriidae,Avahi betsilio,Avahi,P,P,,
+Indriidae,Avahi cleesei,Avahi,P,P,,
+Indriidae,Avahi laniger,Avahi,P,P,P,P
+Indriidae,Avahi meridionalis,Avahi,P,P,,
+Indriidae,Avahi occidentalis,Avahi,P,P,P,P
+Indriidae,Avahi peyrierasi,Avahi,P,P,,
+Indriidae,Avahi ramanantsoavani,Avahi,P,P,,
+Indriidae,Avahi unicolor,Avahi,P,P,,
+Indriidae,Indri indri,Indri,P,P,P,P
+Indriidae,Propithecus coquereli,Propithecus,"P, G","P, UM, MM","P, UM, MM",G
+Indriidae,Propithecus diadema,Propithecus,G,"UM, MM","P, UM, MM",G
+Indriidae,Propithecus edwardsi,Propithecus,"P, G","P, UM, MM","P, UM, MM",G
+Indriidae,Propithecus perrieri,Propithecus,"P, G","P, MM",,G
+Indriidae,Propithecus tattersalli,Propithecus,"P, G","P, UM, MM",MM,G
+Indriidae,Propithecus verreauxi,Propithecus,"P, G","P, UM, MM","P, UM, MM",G
+Lemuridae,Eulemur albifrons,Eulemur,G,MM,MM,
+Lemuridae,Eulemur cinereiceps,Eulemur,G,MM,,
+Lemuridae,Eulemur collaris,Eulemur,G,MM,MM,
+Lemuridae,Eulemur coronatus,Eulemur,G,MM,MM,G
+Lemuridae,Eulemur flavifrons,Eulemur,G,MM,MM,
+Lemuridae,Eulemur fulvus,Eulemur,G,MM,MM,G
+Lemuridae,Eulemur macaco,Eulemur,"P, G","P, UM, MM",MM,G
+Lemuridae,Eulemur mongoz,Eulemur,"P, G","P, MM","P, MM",P
+Lemuridae,Eulemur rubriventer,Eulemur,P,P,P,P
+Lemuridae,Eulemur rufifrons,Eulemur,G,MM,MM,
+Lemuridae,Eulemur rufus,Eulemur,G,MM,,G
+Lemuridae,Eulemur sanfordi,Eulemur,G,MM,MM,
+Lemuridae,Hapalemur alaotrensis,Hapalemur,G,MM,P,G
+Lemuridae,Hapalemur aureus,Hapalemur,"P, G","P, UM","P, MM",G
+Lemuridae,Hapalemur griseus,Hapalemur,"P, G","P, UM",P,G
+Lemuridae,Hapalemur meridionalis,Hapalemur,G,MM,P,
+Lemuridae,Hapalemur occidentalis,Hapalemur,P,P,P,G
+Lemuridae,Lemur catta,Lemur,G,MM,MM,G
+Lemuridae,Prolemur simus,Prolemur,G,"UM, MM",MM,G
+Lemuridae,Varecia rubra,Varecia,G,MM,MM,G
+Lemuridae,Varecia variegata,Varecia,"P, G","P, MM",MM,G
+Lepilemuridae,Lepilemur aeeclis,Lepilemur,S,S,S,
+Lepilemuridae,Lepilemur ahmansoni,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur ankaranensis,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur betsileo,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur dorsalis,Lepilemur,S,S,S,S
+Lepilemuridae,Lepilemur edwardsi,Lepilemur,P,P,S,S
+Lepilemuridae,Lepilemur fleuretae,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur grewcockorum,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur hubbardorum,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur jamesorum,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur leucopus,Lepilemur,P,P,S,S
+Lepilemuridae,Lepilemur microdon,Lepilemur,S,S,S,S
+Lepilemuridae,Lepilemur milanoii,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur mittermeieri,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur mustelinus,Lepilemur,S,S,S,S
+Lepilemuridae,Lepilemur otto,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur petteri,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur randrianasoloi,Lepilemur,S,S,S,
+Lepilemuridae,Lepilemur ruficaudatus,Lepilemur,P,P,S,S
+Lepilemuridae,Lepilemur sahamalazensis,Lepilemur,S,S,S,
+Lepilemuridae,Lepilemur seali,Lepilemur,S,S,S,
+Lepilemuridae,Lepilemur septentrionalis,Lepilemur,S,S,S,S
+Lepilemuridae,Lepilemur tymerlachsoni,Lepilemur,S,S,,
+Lepilemuridae,Lepilemur wrighti,Lepilemur,S,S,,
+Lorisidae,Arctocebus aureus,Arctocebus,S,S,,
+Lorisidae,Arctocebus calabarensis,Arctocebus,S,S,S,S
+Lorisidae,Loris lydekkerianus,Loris,S,S,"S, P",S
+Lorisidae,Loris tardigradus,Loris,S,S,"S, P",S
+Lorisidae,Nycticebus bengalensis,Nycticebus,S,S,,S
+Lorisidae,Nycticebus coucang,Nycticebus,S,S,S,S
+Lorisidae,Nycticebus javanicus,Nycticebus,S,S,,
+Lorisidae,Nycticebus menagensis,Nycticebus,S,S,,
+Lorisidae,Nycticebus pygmaeus,Nycticebus,S,S,S,S
+Lorisidae,Perodicticus potto,Perodicticus,S,S,S,S
+Pitheciidae,Cacajao ayresi,Cacajao,G,MM,,
+Pitheciidae,Cacajao calvus,Cacajao,G,MM,,G
+Pitheciidae,Cacajao hosomi,Cacajao,G,MM,,
+Pitheciidae,Cacajao melanocephalus,Cacajao,G,MM,,G
+Pitheciidae,Callicebus brunneus,Callicebus,P,P,,P
+Pitheciidae,Callicebus caligatus,Callicebus,P,P,,
+Pitheciidae,Callicebus coimbrai,Callicebus,P,P,,
+Pitheciidae,Callicebus cupreus,Callicebus,P,P,,P
+Pitheciidae,Callicebus donacophilus,Callicebus,P,P,P,P
+Pitheciidae,Callicebus hoffmannsi,Callicebus,P,P,,P
+Pitheciidae,Callicebus lugens,Callicebus,P,P,,P
+Pitheciidae,Callicebus moloch,Callicebus,P,P,P,P
+Pitheciidae,Callicebus nigrifrons,Callicebus,P,P,,P
+Pitheciidae,Callicebus personatus,Callicebus,P,P,,P
+Pitheciidae,Callicebus torquatus,Callicebus,P,P,,P
+Pitheciidae,Chiropotes chiropotes,Chiropotes,G,MM,,G
+Pitheciidae,Chiropotes israelita,Chiropotes,G,MM,,G
+Pitheciidae,Chiropotes utahicki,Chiropotes,G,MM,,G
+Pitheciidae,Pithecia irrorata,Pithecia,P,P,,P
+Pitheciidae,Pithecia monachus,Pithecia,"P, G","P, MM",,P
+Pitheciidae,Pithecia pithecia,Pithecia,"P, G","P, MM",,P
+Tarsiidae,Tarsius bancanus,Tarsius,"P, G","P, UM",S,S
+Tarsiidae,Tarsius dentatus,Tarsius,"P, G","P, UM",,S
+Tarsiidae,Tarsius lariang,Tarsius,"P, G","P, UM",,
+Tarsiidae,Tarsius sangirensis,Tarsius,"P, G","P, MM",,S
+Tarsiidae,Tarsius syrichta,Tarsius,S,S,S,S
+Tarsiidae,Tarsius tarsier,Tarsius,"P, G","P, UM",,S
+Tarsiidae,Tarsius wallacei,Tarsius,"P, G","P, UM",,
