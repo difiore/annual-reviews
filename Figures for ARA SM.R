@@ -6,8 +6,11 @@ library(castor)
 library(phytools)
 library(phangorn)
 library(here)
+library(readxl)
 
-colors <- c("skyblue", "orange", "green", "red","maroon","lavender")
+colors <- c("blue", "green", "orange", "red","maroon","skyblue")
+
+# colors <- c("red", "blue", "maroon", "skyblue", "green", "orange")
 
 # Plot Figure 2 ----
 tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
@@ -84,7 +87,6 @@ for (i in 1:length(genus_clades$clade)) {
 }
 
 # plot SM Figure 2
-colors <- c("red", "blue", "maroon", "skyblue", "green", "orange")
 
 p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
   # geom_tiplab(aes(label=label), size=2) +
@@ -113,7 +115,7 @@ p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
 
 p
 
-# Olivier et al Data -----
+# Plot Olivier et al Data on their Tree -----
 # load Character Data
 dataG <- read_csv("Olivier et al 2024 data/dataG.csv", col_names = TRUE)
 my_data <- dataG |>
@@ -169,7 +171,7 @@ td <- t[tip.label %in% data_subset,]
 # or, use all...
 td <- t
 
-# Set up dataset ----
+# Set Up Dataset ----
 character_data <- td$dat$main_SO
 character_data <- case_when(
   character_data == "solitary" ~ "S",
@@ -185,38 +187,37 @@ tree <- td$phy
 # Convert states to a factor (required for discrete traits in phytools)
 character_data <- as.factor(character_data)
 
-# ML ancestral state reconstruction ----
-ace_results <- ace(character_data, tree, type = "discrete", method = "ML")
+# ML Ancestral State Reconstruction ----
+# Using the 'ER' model (Equal Rates model) for trait evolution
+ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER")
 
-# Define state names
-state_names <- colnames(ace_results$lik.anc)
+# # Define state names
+# state_names <- colnames(ace_results$lik.anc)
+#
+# # Number the internal nodes
+# tree$node.label <- 1:tree$Nnode+Ntip(tree)  # Sequential labels from 1 to Nnode(tree)
+#
+# # Extract the likelihoods for ancestral nodes and make dataframe
+# likelihoods <- as.data.frame(ace_results$lik.anc)
+# colnames(likelihoods) <- state_names  # Assign state names to the columns
+#
+# # Convert likelihoods to data frame and add node numbers
+# likelihoods$node <- 1:tree$Nnode+Ntip(tree)
+#
+# # Reshape the likelihoods into long format
+# likelihoods_long <- likelihoods |>
+#   pivot_longer(cols = all_of(state_names),
+#                names_to = "state",
+#                values_to = "likelihood")
+#
+# # Get tree data and ensure node numbering consistency
+# tree_data <- fortify(tree)
+# tree_data$parent <- as.numeric(tree_data$parent)  # Ensure node numbers are numeric
+# likelihoods$node <- as.numeric(likelihoods$node)  # Ensure node numbers are numeric
+#
+# # Merge the likelihoods with tree data by node number
+# tree_data <- merge(tree_data, likelihoods, by = c("parent" = "node"), all.x = TRUE)
 
-# Number the internal nodes
-tree$node.label <- 1:tree$Nnode+Ntip(tree)  # Sequential labels from 1 to Nnode(tree)
-
-# Extract the likelihoods for ancestral nodes and make dataframe
-likelihoods <- as.data.frame(ace_results$lik.anc)
-colnames(likelihoods) <- state_names  # Assign state names to the columns
-
-# Convert likelihoods to data frame and add node numbers
-likelihoods$node <- 1:tree$Nnode+Ntip(tree)
-
-# Reshape the likelihoods into long format
-likelihoods_long <- likelihoods |>
-  pivot_longer(cols = all_of(state_names),
-               names_to = "state",
-               values_to = "likelihood")
-
-# ----
-# Get tree data and ensure node numbering consistency
-tree_data <- fortify(tree)
-tree_data$parent <- as.numeric(tree_data$parent)  # Ensure node numbers are numeric
-likelihoods$node <- as.numeric(likelihoods$node)  # Ensure node numbers are numeric
-
-# Merge the likelihoods with tree data by node number
-tree_data <- merge(tree_data, likelihoods, by = c("parent" = "node"), all.x = TRUE)
-
-# -----
 # Force tree to be ultrametric using phytools::force_ultrametric
 um_tree <- force.ultrametric(tree, method = "extend") # used by Olivier et al
 
@@ -228,90 +229,133 @@ p <- ggtree(um_tree,
 
 p
 
-node_positions <- p$data |>
-  filter(isTip == FALSE) |> # Only internal nodes (not tips)
-  mutate(node = as.numeric(node))
+# node_positions <- p$data |>
+#   filter(isTip == FALSE) |> # Only internal nodes (not tips)
+#   mutate(node = as.numeric(node))
+#
+# # Prepare pie chart data from scratch
+# likelihoods_long <- likelihoods_long |>
+#   filter(node %in% node_positions$node)  # Only for internal nodes
+#
+# likelihoods_long <- likelihoods_long |>
+#   left_join(node_positions, by = c("node" = "node")) |>
+#   mutate(x_pos = x, y_pos = y)  # Ensure the likelihoods are aligned with tree positions
+#
+# pies <- nodepie(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
+# bars <- nodebar(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
+#
+# # Visualize the tree with reconstructed states using phylo.plot
+# # Use pie charts to display state probabilities at internal nodes
+# nodepies <- apply(likelihoods[, 1:dim(likelihoods)[2] - 1], 1, function(row) {
+#   # Each row corresponds to a node's probabilities
+#   row / sum(row)  # Normalize probabilities for visualization
+# })
+# colnames(nodepies) <- 1:um_tree$Nnode+Ntip(um_tree)
 
-# Prepare pie chart data from scratch
-likelihoods_long <- likelihoods_long |>
-  filter(node %in% node_positions$node)  # Only for internal nodes
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction")
 
-likelihoods_long <- likelihoods_long |>
-  left_join(node_positions, by = c("node" = "node")) |>
-  mutate(x_pos = x, y_pos = y)  # Ensure the likelihoods are aligned with tree positions
+# Add pie charts for ancestral states at internal nodes
+node_posterior_probs <- as.matrix(ace_results$lik.anc)
 
-pies <- nodepie(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
-bars <- nodebar(likelihoods, cols = 1:dim(likelihoods)[2] - 1)
+nodelabels(
+  pie = node_posterior_probs,
+  piecol = colors,
+  cex = 0.2
+)
 
-# Visualize the tree with reconstructed states using phylo.plot
-# Use pie charts to display state probabilities at internal nodes
-nodepies <- apply(likelihoods[, 1:dim(likelihoods)[2] - 1], 1, function(row) {
-  # Each row corresponds to a node's probabilities
-  row / sum(row)  # Normalize probabilities for visualization
-})
-colnames(nodepies) <- 1:um_tree$Nnode+Ntip(um_tree)
-
-plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Phylogenetic Tree with Ancestral State Reconstruction")
-
-nodelabels(pie = t(nodepies), piecol = colors, cex = 0.4)
+# nodelabels(pie = t(nodepies), piecol = colors, cex = 0.2)
 
 tippies <- as.factor(character_data)
 tippies <- to.matrix(tippies, levels(tippies))
 tippies <- tippies[um_tree$tip.label,]
 
-tiplabels(pie = tippies, piecol = colors, cex = 0.4)
+tiplabels(pie = tippies, piecol = colors, cex = 0.2)
 
-legend("topleft", legend = state_names, fill = colors)
+legend("topleft",
+       legend = state_names,
+       fill = colors,
+       title = "Character States")
 
-# SCM ancestral character state reconstruction ----
+r <- tibble(dataset = "Oliver et al", phylo = "Olivier et al", method = "ML", model = "ER", G = node_posterior_probs[1,1], P = node_posterior_probs[1,2], S = node_posterior_probs[1,3], sum = G + P + S)
+res <- r
+
+# Another ML Ancestral State Reconstruction ----
+# Using the 'ARD' model (All Rates Different model) for trait evolution
+ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ARD")
+
+# Extract the reconstructed states for internal nodes
+ace_results$lik.anc  # The reconstructed ancestral states
+
+# Plot the tree
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction")
+
+# Add pie charts for ancestral states at internal nodes
+node_posterior_probs <- as.matrix(ace_results$lik.anc)
+
+node_posterior_probs[node_posterior_probs < 0] <- 0 # replace negative values with zero
+
+nodelabels(
+  pie = node_posterior_probs,
+  piecol = colors,
+  cex = 0.2
+)
+
+tiplabels(
+  pie = tip_probs,
+  piecol = colors,
+  cex = 0.2
+)
+
+# Add a legend
+legend("topleft",
+       legend = state_names,
+       fill = colors,
+       title = "Character States")
+
+r <- tibble(dataset = "Oliver et al", phylo = "Olivier et al", method = "ML", model = "ARD", G = node_posterior_probs[1,1], P = node_posterior_probs[1,2], S = node_posterior_probs[1,3], sum = G + P + S)
+
+res <- bind_rows(res, r)
+
+# Another ML ----
+ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "SYM")
+node_posterior_probs <- as.matrix(ace_results$lik.anc)
+node_posterior_probs[node_posterior_probs < 0] <- 0
+r <- tibble(dataset = "Oliver et al", phylo = "Olivier et al", method = "ML", model = "SYM", G = node_posterior_probs[1,1], P = node_posterior_probs[1,2], S = node_posterior_probs[1,3], sum = G + P + S)
+
+res <- bind_rows(res, r)
+
+# SCM Ancestral State Reconstruction ----
 
 # Perform stochastic character mapping (Bayesian approach)
 set.seed(123)  # For reproducibility
 n_simulations <- 100  # Number of stochastic maps to generate
-stochastic_maps <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn")
+stochastic_maps <- make.simmap(tree, character_data, type = "discrete", method = "ML", model = "ER", nsim = n_simulations, pi = "fitzjohn", Q = "mcmc")
 
 # Summarize the stochastic maps
 summary_maps <- summary(stochastic_maps)
 
 # Extract posterior probabilities for internal nodes
 posterior_probs <- summary_maps$ace
+node_posterior_probs <- posterior_probs[1:tree$Nnode,1:3]
 
-# Convert observed states for tips to pie chart format
-# Create a matrix for pie charts where each row represents a tip
-tip_probs <- matrix(0, nrow = length(tree$tip.label), ncol = length(tree$tip.label))
-state_indices <- as.numeric(character_data)  # Convert factor to numeric indices
-for (i in seq_along(character_data)) {
-  tip_probs[i, state_indices[i]] <- 1  # Assign 1 to the observed state
-}
-
-# Ensure posterior_probs are in a matrix format for nodes
-# We need to convert the posterior probabilities into a matrix for plotting
-n_nodes <- length(tree$edge[, 1])  # Number of internal nodes
-node_posterior_probs <- matrix(0, nrow = n_nodes, ncol = length(state_names))
-
-# Loop through internal nodes to assign posterior probabilities
-for (i in 1:n_nodes) {
-  for(j in 1: length(state_names)){
-  # For each internal node, the posterior probabilities should be extracted and assigned
-  node_posterior_probs[i, j] <- posterior_probs[i, j]
-  }
-}
+# Tip states
+tip_probs <- summary_maps$tips
 
 # Plot the tree
-plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Phylogenetic Tree with Ancestral State Reconstruction")
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, no.margin = TRUE, main = "Phylogenetic Tree with Ancestral State Reconstruction")
 
-# Add pie charts for internal nodes (posterior probabilities)
+# Add pie charts for internal nodes
 nodelabels(
   pie = node_posterior_probs,
   piecol = colors,
-  cex = 0.4
+  cex = 0.2
 )
 
 # Add pie charts for tips (observed states)
 tiplabels(
   pie = tip_probs,
   piecol = colors,
-  cex = 0.4
+  cex = 0.2
 )
 
 # Add a legend
@@ -320,155 +364,9 @@ legend("topleft",
        fill = colors,
        title = "Character States")
 
-# Another ML ----
+r <- tibble(dataset = "Oliver et al", phylo = "Olivier et al", method = "SCM", model = "ER-MCMC", G = node_posterior_probs[1,1], P = node_posterior_probs[1,2], S = node_posterior_probs[1,3], sum = G + P + S)
 
-# Perform Maximum Likelihood Ancestral State Reconstruction
-# Using the 'ER' model (Equal Rates model) for trait evolution
-reconstructed_states <- ace(character_data, tree, type = "discrete", model = "ER")
-
-# Extract the reconstructed states for internal nodes
-reconstructed_states$lik.anc  # The reconstructed ancestral states
-
-# Plot the tree
-plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Phylogenetic Tree with Ancestral State Reconstruction")
-
-# Add pie charts for ancestral states at internal nodes
-node_posterior_probs <- as.matrix(reconstructed_states$lik.anc)
-
-nodelabels(
-  pie = node_posterior_probs,
-  piecol = colors,
-  cex = 0.4
-)
-
-# Add pie charts for tips (observed states)
-tip_probs <- matrix(0, nrow = length(tree$tip.label), ncol = length(state_names))
-state_indices <- as.numeric(character_data)  # Convert factor to numeric indices
-for (i in seq_along(character_data)) {
-  tip_probs[i, state_indices[i]] <- 1  # Assign 1 to the observed state
-}
-
-tiplabels(
-  pie = tip_probs,
-  piecol = colors,
-  cex = 0.4
-)
-
-# Add a legend
-legend("topleft",
-       legend = state_names,
-       fill = colors,
-       title = "Character States")
-
-
-
-# MCMC-----
-
-# 3. MCMC for Ancestral State Reconstruction
-# Number of MCMC iterations
-n_iter <- 10000
-# Set initial ancestral states randomly (either 0 or 1)
-initial_anc_states <- sample(c(0, 1), length(tree$node.label), replace = TRUE)
-
-# Initialize the ancestral states vector to include both tip and internal states
-# First, fill with the tip states (which are known)
-anc_states <- rep(NA, length(tree$tip.label) + length(tree$node.label))
-anc_states[1:length(tree$tip.label)] <- as.numeric(states)  # Tip states (0 or 1)
-
-# 4. Set up a function for the likelihood of the model
-# We will use a simple equal rates (ER) model for state transitions
-log_likelihood <- function(tree, states, anc_states) {
-  lik <- 0
-  # Iterate over all edges in the tree
-  for (i in 1:nrow(tree$edge)) {
-    parent <- tree$edge[i, 1]
-    child <- tree$edge[i, 2]
-
-    # Check if the parent node is internal (>= number of tips)
-    if (parent > length(tree$tip.label)) {
-      # Only calculate likelihood for internal edges (not tips)
-      if (anc_states[parent] != anc_states[child]) {
-        lik <- lik + log(0.5)  # Transition between states (0 <-> 1) with equal probability
-      }
-    }
-  }
-  return(lik)
-}
-
-# 5. Run MCMC to sample from the posterior distribution
-mcmc_samples <- matrix(NA, nrow = n_iter, ncol = length(tree$node.label))  # Store MCMC samples
-
-# Initial state sample (ancestral)
-current_states <- anc_states[(length(tree$tip.label) + 1):length(anc_states)]  # Only ancestral nodes
-current_likelihood <- log_likelihood(tree, states, anc_states)
-
-# MCMC loop
-for (i in 1:n_iter) {
-  # Propose a new state by randomly changing one of the ancestral states
-  proposed_states <- current_states
-  node_to_change <- sample(1:length(current_states), 1)
-  proposed_states[node_to_change] <- sample(c(0, 1), 1)  # Randomly flip the state
-
-  # Update the full ancestral state vector (with tips and internal nodes)
-  full_proposed_states <- anc_states
-  full_proposed_states[(length(tree$tip.label) + 1):length(anc_states)] <- proposed_states
-
-  # Calculate the new likelihood
-  proposed_likelihood <- log_likelihood(tree, states, full_proposed_states)
-
-  # Accept or reject the proposed state based on the Metropolis-Hastings criterion
-  acceptance_prob <- min(1, exp(proposed_likelihood - current_likelihood))
-
-  if (runif(1) < acceptance_prob) {
-    # Accept the new state
-    current_states <- proposed_states
-    current_likelihood <- proposed_likelihood
-  }
-
-  # Store the current state in the MCMC chain
-  mcmc_samples[i, ] <- current_states
-}
-
-# 6. Analyze the MCMC samples
-# The posterior distribution of states at each node
-posterior_means <- apply(mcmc_samples, 2, mean)  # Mean state at each node
-posterior_sd <- apply(mcmc_samples, 2, sd)  # Standard deviation (uncertainty) at each node
-
-# 7. Plot the tree with the posterior distributions at the nodes
-plot(tree, main = "Phylogenetic Tree with MCMC Ancestral State Reconstruction")
-
-# Add pie charts for posterior state probabilities at the internal nodes
-node_posterior_probs <- matrix(0, nrow = length(tree$node.label), ncol = 2)  # Two states: 0 and 1
-node_posterior_probs[, 1] <- 1 - posterior_means  # State 0 probability
-node_posterior_probs[, 2] <- posterior_means      # State 1 probability
-
-# Define colors for the states
-state_colors <- c("skyblue", "orange")
-
-nodelabels(
-  pie = node_posterior_probs,  # Posterior probabilities as pie chart format
-  piecol = state_colors,       # Use defined colors for states
-  cex = 1.2                    # Adjust size of pie charts
-)
-
-# Add pie charts for tips (observed states)
-tip_probs <- matrix(0, nrow = length(tree$tip.label), ncol = 2)  # 2 states (0 and 1)
-state_indices <- as.numeric(states)  # Convert factor to numeric indices
-for (i in seq_along(states)) {
-  tip_probs[i, state_indices[i]] <- 1  # Assign 1 to the observed state
-}
-
-tiplabels(
-  pie = tip_probs,
-  piecol = state_colors,
-  cex = 1.2
-)
-
-# 8. Add a legend
-legend("topleft", legend = c("State 0", "State 1"),
-       fill = state_colors, title = "Character States")
-
-
+res <- bind_rows(res, r)
 
 
 
@@ -743,22 +641,23 @@ genNodes <-
 
 
 
-# WORKING WITH Kuderna TREE ----
+# Plotting Olivier et al Data on Kuderna Tree ----
 
-setwd('/Users/ad26693/Desktop/Active Sync/Current Writing/Annual Reviews - Evolution of Primate Social Systems')
+tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
 
-colors <- c("skyblue", "orange", "green", "red","maroon","lavender")
+tree <- read.tree(tree_file)
 
-tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree" # Replace with your tree
+outgroup <- c("Tupaia_belangeri", "Galeopterus_variegatus", "Mus_musculus", "Oryctolagus_cuniculus")
 
-my_tree <- read.tree(tree_file)
-my_tree$tip.label
-outgroup <- c(my_tree$tip.label[c(1,2,235,236)])
-my_tree <- root(my_tree, outgroup = outgroup, resolve.root = TRUE)
-is.rooted.phylo(my_tree)
-is.binary(my_tree)
+tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
+is.rooted.phylo(tree)
+is.binary(tree)
 
-t <- as.treedata.table(tree = my_tree, data = as.data.frame(my_data))
+t <- as.treedata.table(tree = tree, data = as.data.frame(my_data))
+
+# quick plot
+plot.phylo(tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Primate Phylogeny")
+# not tips are not aligned
 
 # Filter Taxa ----
 
@@ -768,6 +667,7 @@ data_subset <- my_data |>
   pull(`Genus_species`)
 
 td <- t[tip.label %in% data_subset,]
+td <- t
 
 character_data <- td$dat$main_SO
 character_data <- case_when(
@@ -784,7 +684,7 @@ tree <- td$phy
 # Convert states to a factor (required for discrete traits in phytools)
 character_data <- as.factor(character_data)
 
-#----ML ancestral state reconstruction----
+# ML Ancestral State Reconstruction----
 ace_results <- ace(character_data, tree, type = "discrete", method = "ML")
 
 # Define state names
@@ -805,15 +705,16 @@ um_tree <- force.ultrametric(tree, method = "extend") # used by Olivier et al
 
 p <- ggtree(um_tree,
             layout = "circular",
-            size = 0.1,
+            size = 0.3,
             branch.length = "branch.length"#,
             #options(ignore.negative.edge=TRUE)
 ) +
-  geom_tiplab(size = 2)
+  geom_tiplab(size = 2) +
+  geom_nodelab()
 p
 
 # Visualize the tree with reconstructed states using phylo.plot
-plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "ML Ancestral State Reconstruction")
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, no.margin = TRUE, main = "ML Ancestral State Reconstruction")
 
 # Use pie charts to display state probabilities at internal nodes
 nodepies <- apply(likelihoods[, 1:dim(likelihoods)[2] - 1], 1, function(row) {
@@ -827,7 +728,9 @@ colnames(nodepies) <- 1:tree$Nnode+Ntip(tree)
 
 nodelabels(pie = t(nodepies),
            piecol = colors,
-           cex = 0.4)
+           cex = 0.3)
+
+olivier_ml <- nodepies[1:3,1]
 
 # Make pie charts for tips
 tippies <- as.factor(character_data)
@@ -838,7 +741,7 @@ tippies <- tippies[um_tree$tip.label,]
 tiplabels(
   pie = tippies,
   piecol = colors,
-  cex = 0.4
+  cex = 0.3
 )
 
 # Add a legend
@@ -881,20 +784,20 @@ for (i in 1:n_nodes) {
 }
 
 # Visualize the tree with reconstructed states using phylo.plot
-plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Stochastic Character Mapping Reconstruction")
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, no.margin = TRUE, main = "Stochastic Character Mapping Reconstruction")
 
 # Add pie charts for internal nodes (posterior probabilities)
 nodelabels(
   pie = node_posterior_probs,
   piecol = colors,
-  cex = 0.4
+  cex = 0.3
 )
 
 # Add pie charts for tips (observed states)
 tiplabels(
   pie = tip_probs,
   piecol = colors,
-  cex = 0.4
+  cex = 0.3
 )
 
 # Add a legend
@@ -903,3 +806,5 @@ legend("topleft",
        fill = colors,
        title = "Character States")
 
+
+comp <- read_excel("comparison table.xlsx", sheet = 1, col_names = TRUE)
