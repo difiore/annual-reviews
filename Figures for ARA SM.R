@@ -694,6 +694,65 @@ p
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree", "summary", "p")))
 
-Kuderna_et_al_summary <- pivot_longer(Kuderna_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2"))
+Kuderna_et_al_summary <- pivot_longer(Kuderna_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2")) |>
+  filter(dataset != "Lukas & Clutton-Brock additional 2") |>
+  select(dataset, phylo, name, value)
 
-Olivier_et_al_summary <- pivot_longer(Olivier_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2"))
+Kuderna_et_al_summary <- Kuderna_et_al_summary |>
+  filter(value != 0) |>
+  arrange(dataset, phylo) |>
+  mutate(method = if_else(grepl("1", `name`), "ML", "SCM")) |>
+  mutate(name = if_else(`name` == "DG1" | `name` == "DG2", "D-G", `name`)) |>
+  mutate(name = if_else(`name` == "DP1" | `name` == "DP2", "D-P", `name`)) |>
+  mutate(name = if_else(`name` == "G1" | `name` == "G2", "G", `name`)) |>
+  mutate(name = if_else(`name` == "P1" | `name` == "P2", "P", `name`)) |>
+  mutate(name = if_else(`name` == "S1" | `name` == "S2", "S", `name`)) |>
+  group_by(dataset, method) |>
+  arrange(desc(name)) |>
+  mutate(prop = value) |>
+  mutate(ypos = cumsum(prop)- 0.5 * prop )
+
+Olivier_et_al_summary <- pivot_longer(Olivier_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2")) |>
+  filter(dataset != "Lukas & Clutton-Brock additional 2") |>
+  select(dataset, phylo, name, value)
+
+Olivier_et_al_summary <- Olivier_et_al_summary |>
+  filter(value != 0) |>
+  arrange(dataset, phylo) |>
+  mutate(method = if_else(grepl("1", `name`), "ML", "SCM")) |>
+  mutate(name = if_else(`name` == "DG1" | `name` == "DG2", "D-G", `name`)) |>
+  mutate(name = if_else(`name` == "DP1" | `name` == "DP2", "D-P", `name`)) |>
+  mutate(name = if_else(`name` == "G1" | `name` == "G2", "G", `name`)) |>
+  mutate(name = if_else(`name` == "P1" | `name` == "P2", "P", `name`)) |>
+  mutate(name = if_else(`name` == "S1" | `name` == "S2", "S", `name`)) |>
+  group_by(dataset, method) |>
+  arrange(desc(name)) |>
+  mutate(prop = value) |>
+  mutate(ypos = cumsum(prop)- 0.5 * prop )
+
+colors <- c("skyblue", "red", "blue", "green", "orange")
+state_names <- c("D-G", "D-P", "G", "P", "S")
+
+p <- ggplot(Kuderna_et_al_summary, aes(x="", y=value, fill=name)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme_void() +
+  theme(legend.position="none") +
+  scale_fill_manual(values = colors) +
+  facet_wrap(vars(method, dataset), nrow = 2) +
+  geom_label_repel(aes(y = ypos, label = name, , color = factor(name)), size = 4.5, nudge_x = 1) +
+  scale_colour_manual(values = c("black", "black", "white","black", "black"))
+
+p
+
+p <- ggplot(Olivier_et_al_summary, aes(x="", y=value, fill=name)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme_void() +
+  theme(legend.position="none") +
+  scale_fill_manual(values = colors) +
+  facet_wrap(vars(method, dataset), nrow = 2) +
+  geom_label_repel(aes(y = ypos, label = name, , color = factor(name)), size = 4.5, nudge_x = 1) +
+  scale_colour_manual(values = c("black", "black", "white","black", "black"))
+
+p
