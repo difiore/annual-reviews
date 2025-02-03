@@ -1,0 +1,315 @@
+Order,Superfamily,Genus,Species,Kappeler & Pozzi 3 state,Lukas & Clutton-Brock 3 state,Olivier et al 3 state,Shultz et al 3 state,Müller & Thalman 3 state,Müller & Thalman 3 state - dispersed,Additional 3 state,Additional 3 state - dispersed,Conflicting Character State Assignment?
+Primates,Lemuroidea,Allocebus,Allocebus_trichotis,S,S,G,"S, P",NA,NA,NA,NA,conflicting
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_preussi,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_caraya,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_discolor,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_guariba,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_palliata,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_pigra,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_sara,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Alouatta,Alouatta_seniculus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Aotus,Aotus_azarae,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Aotus,Aotus_nigriceps,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Aotus,Aotus_zonalis,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Ateles,Ateles_belzebuth,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Ateles,Ateles_chamek,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Ateles,Ateles_geoffroyi,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Ateles,Ateles_hybridus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Ateles,Ateles_marginatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Avahi,Avahi_laniger,P,P,P,P,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,Avahi,Avahi_meridionalis,P,NA,P,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,Avahi,Avahi_occidentalis,P,P,P,P,NA,NA,NA,NA,concordant
+Primates,Ceboidea,Brachyteles,Brachyteles_arachnoides,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Brachyteles,Brachyteles_hypoxanthus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cacajao,Cacajao_calvus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cacajao,Cacajao_melanocephalus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_coimbrai,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_melanochir,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_nigrifrons,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_personatus,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callimico,Callimico_goeldii,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callithrix,Callithrix_aurita,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Callithrix,Callithrix_flaviceps,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Callithrix,Callithrix_jacchus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Callithrix,Callithrix_penicillata,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cebus,Cebus_albifrons,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cebus,Cebus_capucinus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cebus,Cebus_kaapori,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Cebus,Cebus_olivaceus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercocebus,Cercocebus_agilis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercocebus,Cercocebus_atys,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercocebus,Cercocebus_galeritus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercocebus,Cercocebus_sanjei,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercocebus,Cercocebus_torquatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_ascanius,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_campbelli,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_cephus,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_pogonias,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_diana,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_erythrogaster,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_mitis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_mona,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_neglectus,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_nictitans,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Cercopithecus,Cercopithecus_petaurista,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Cheirogaleus,Cheirogaleus_major,S,P,P,S,NA,NA,NA,NA,conflicting
+Primates,Lemuroidea,Cheirogaleus,Cheirogaleus_medius,P,P,P,"S, P",P,D-P,NA,NA,conflicting
+Primates,Ceboidea,Callicebus,Callicebus_lugens,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_torquatus,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Chiropotes,Chiropotes_satanas,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Chlorocebus,Chlorocebus_aethiops,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Chlorocebus,Chlorocebus_pygerythrus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Colobus,Colobus_angolensis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Colobus,Colobus_guereza,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Colobus,Colobus_polykomos,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Colobus,Colobus_satanas,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Colobus,Colobus_vellerosus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Daubentonia,Daubentonia_madagascariensis,S,S,S,S,G,D-G,NA,NA,conflicting
+Primates,Cercopithecoidea,Erythrocebus,Erythrocebus_patas,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_collaris,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_flavifrons,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_fulvus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_macaco,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_mongoz,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_rubriventer,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_rufifrons,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Eulemur,Eulemur_rufus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lorisoidea,Galagoides,Galagoides_zanzibaricus,P,S,P,"S, P, G",P,D-P,NA,NA,conflicting
+Primates,Hominoidea,Gorilla,Gorilla_beringei,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Gorilla,Gorilla_gorilla,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Hapalemur,Hapalemur_alaotrensis,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Hapalemur,Hapalemur_aureus,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Hapalemur,Hapalemur_griseus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Hapalemur,Hapalemur_meridionalis,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Hoolock,Hoolock_hoolock,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hoolock,Hoolock_leuconedys,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_agilis,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_albibarbis,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_muelleri,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_klossii,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_lar,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_moloch,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Hylobates,Hylobates_pileatus,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Indri,Indri_indri,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Oreonax,Oreonax_flavicauda,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Lagothrix,Lagothrix_lagotricha,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Lagothrix,Lagothrix_poeppigii,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Lemur,Lemur_catta,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Leontopithecus,Leontopithecus_caissara,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Leontopithecus,Leontopithecus_chrysopygus,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Leontopithecus,Leontopithecus_rosalia,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Lepilemur,Lepilemur_edwardsi,P,S,P,S,P,D-P,NA,NA,conflicting
+Primates,Lemuroidea,Lepilemur,Lepilemur_leucopus,P,S,P,S,G,D-G,NA,NA,conflicting
+Primates,Lemuroidea,Lepilemur,Lepilemur_mustelinus,S,S,S,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,Lepilemur,Lepilemur_ruficaudatus,P,S,P,S,P,D-P,NA,NA,conflicting
+Primates,Cercopithecoidea,Lophocebus,Lophocebus_albigena,G,G,G,G,G,G,NA,NA,NA
+Primates,Lorisoidea,Loris,Loris_lydekkerianus,S,S,S,"S, P",NA,NA,NA,NA,conflicting
+Primates,Cercopithecoidea,Macaca,Macaca_arctoides,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_assamensis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_cyclopis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_fascicularis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_fuscata,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_leonina,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_maura,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_mulatta,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_munzala,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_nemestrina,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_nigra,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_radiata,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_siberu,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_silenus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_sinica,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_sylvanus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_thibetana,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Macaca,Macaca_tonkeana,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Mandrillus,Mandrillus_leucophaeus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Mandrillus,Mandrillus_sphinx,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Mico,Mico_argentatus,P,P,P,P,P,P,NA,NA,NA
+Primates,Lemuroidea,Microcebus,Microcebus_murinus,S,G,S,"S, P",G,D-G,NA,NA,conflicting
+Primates,Lemuroidea,Microcebus,Microcebus_ravelobensis,S,S,S,"S, P",NA,NA,NA,NA,conflicting
+Primates,Cercopithecoidea,Miopithecus,Miopithecus_talapoin,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Mirza,Mirza_coquereli,S,S,S,S,G,D-G,NA,NA,conflicting
+Primates,Cercopithecoidea,Nasalis,Nasalis_larvatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Nomascus,Nomascus_concolor,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Nomascus,Nomascus_gabriellae,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Nomascus,Nomascus_hainanus,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Nomascus,Nomascus_nasutus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lorisoidea,Nycticebus,Nycticebus_coucang,S,S,S,S,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,Otolemur,Otolemur_crassicaudatus,S,S,S,"S, P, G",G,D-G,NA,NA,conflicting
+Primates,Lorisoidea,Otolemur,Otolemur_garnettii,S,S,S,S,NA,NA,NA,NA,concordant
+Primates,Hominoidea,Pan,Pan_paniscus,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Pan,Pan_troglodytes,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Papio,Papio_anubis,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Papio,Papio_cynocephalus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Papio,Papio_hamadryas,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Papio,Papio_papio,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Papio,Papio_ursinus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lorisoidea,Perodicticus,Perodicticus_potto,S,S,S,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,Phaner,Phaner_furcifer,NA,P,P,NA,P,D-P,NA,NA,concordant
+Primates,Cercopithecoidea,Procolobus,Procolobus_badius,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Procolobus,Procolobus_kirkii,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Procolobus,Procolobus_rufomitratus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Pithecia,Pithecia_aequatorialis,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Pithecia,Pithecia_chrysocephala,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Pithecia,Pithecia_irrorata,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Pithecia,Pithecia_pithecia,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_discolor,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Callicebus,Callicebus_oenanthe,P,P,P,P,P,P,NA,NA,NA
+Primates,Hominoidea,Pongo,Pongo_pygmaeus,S,S,S,S,S,S,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_comata,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_frontata,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_hosei,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_melalophos,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_natunae,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_potenziani,P,P,P,P,P,P,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_rubicunda,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Presbytis,Presbytis_thomasi,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Procolobus,Procolobus_verus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Prolemur,Prolemur_simus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Propithecus,Propithecus_edwardsi,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Propithecus,Propithecus_perrieri,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Propithecus,Propithecus_verreauxi,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Pygathrix,Pygathrix_nemaeus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Pygathrix,Pygathrix_nigripes,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rhinopithecus,Rhinopithecus_avunculus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rhinopithecus,Rhinopithecus_bieti,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rhinopithecus,Rhinopithecus_brelichi,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rhinopithecus,Rhinopithecus_roxellana,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rhinopithecus,Rhinopithecus_strykeri,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Rungwecebus,Rungwecebus_kipunji,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Leontocebus,Leontocebus_nigricollis,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Saguinus,Saguinus_imperator,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Saguinus,Saguinus_labiatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Saguinus,Saguinus_mystax,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Leontocebus,Leontocebus_nigricollis,P,P,P,P,P,P,NA,NA,NA
+Primates,Ceboidea,Saguinus,Saguinus_oedipus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Saimiri,Saimiri_sciureus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Sapajus,Sapajus_apella,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Sapajus,Sapajus_cay,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Sapajus,Sapajus_flavius,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Sapajus,Sapajus_libidinosus,G,G,G,G,G,G,NA,NA,NA
+Primates,Ceboidea,Sapajus,Sapajus_nigritus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Semnopithecus,Semnopithecus_ajax,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Semnopithecus,Semnopithecus_entellus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Semnopithecus,Semnopithecus_hypoleucos,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Semnopithecus,Semnopithecus_schistaceus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Simias,Simias_concolor,G,G,G,G,G,G,NA,NA,NA
+Primates,Hominoidea,Symphalangus,Symphalangus_syndactylus,P,P,P,P,P,P,NA,NA,NA
+Primates,Tarsioidea,Tarsius,Tarsius_bancanus,"P, G",S,S,S,NA,NA,NA,NA,conflicting
+Primates,Tarsioidea,Tarsius,Tarsius_lariang,"P, G",NA,P,NA,NA,NA,NA,NA,conflicting
+Primates,Tarsioidea,Tarsius,Tarsius_pumilus,NA,S,G,NA,NA,NA,NA,NA,conflicting
+Primates,Tarsioidea,Tarsius,Tarsius_sangirensis,"P, G",S,P,NA,NA,NA,NA,NA,conflicting
+Primates,Tarsioidea,Tarsius,Tarsius_syrichta,S,S,S,S,NA,NA,NA,NA,concordant
+Primates,Tarsioidea,Tarsius,Tarsius_tarsier,"P, G",S,P,NA,NA,NA,NA,NA,conflicting
+Primates,Cercopithecoidea,Theropithecus,Theropithecus_gelada,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_auratus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_cristatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_francoisi,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_geei,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_germaini,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_johnii,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_obscurus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_phayrei,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_pileatus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_poliocephalus,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_shortridgei,G,G,G,G,G,G,NA,NA,NA
+Primates,Cercopithecoidea,Trachypithecus,Trachypithecus_vetulus,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,Varecia,Varecia_variegata,G,G,G,G,G,G,NA,NA,NA
+Primates,Lemuroidea,NA,Cheirogaleus_crossleyi,S,P,NA,NA,NA,NA,NA,NA,conflicting
+Primates,Lemuroidea,NA,Cheirogaleus_minusculus,NA,P,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Cheirogaleus_ravus,NA,P,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Cheirogaleus_sibreei,S,P,NA,NA,NA,NA,NA,NA,conflicting
+Primates,Lemuroidea,NA,Microcebus_arnholdi,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_berthae,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Microcebus_bongolavensis,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_danfossi,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_gerpi,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_griseorufus,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Microcebus_jollyae,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_lehilahytsara,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_macarthurii,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_mamiratra,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_margotmarshae,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_mittermeieri,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_myoxinus,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Microcebus_rufus,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Microcebus_sambiranensis,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_simmonsi,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Microcebus_tavaratra,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Mirza_zaza,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Phaner_pallescens,P,S,NA,NA,NA,NA,NA,NA,conflicting
+Primates,Lemuroidea,NA,Phaner_parienti,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Euoticus_elegantulus,S,S,NA,"S, G",NA,NA,NA,NA,conflicting
+Primates,Lorisoidea,NA,Euoticus_pallidus,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Galago_alleni,S,S,NA,"S, G",G,D-G,NA,NA,conflicting
+Primates,Lorisoidea,NA,Galago_cameronensis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Galagoides_demidoff,S,S,NA,"S, P, G",G,D-G,NA,NA,conflicting
+Primates,Lorisoidea,NA,Galago_gabonensis,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Galago_gallarum,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Galago_granti,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Galago_matschiei,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Galago_moholi,S,S,NA,"S, G",G,D-G,NA,NA,conflicting
+Primates,Lorisoidea,NA,Galago_nyasae,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Galago_orinus,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Galago_rondoensis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Galago_senegalensis,S,S,NA,"S, G",NA,NA,NA,NA,conflicting
+Primates,Lorisoidea,NA,Galago_thomasi,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Otolemur_monteiri,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Avahi_betsilio,P,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Avahi_cleesei,P,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Avahi_peyrierasi,P,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Avahi_ramanantsoavani,P,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Avahi_unicolor,P,P,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Cheirogaleus_adipicaudatus,NA,P,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_aeeclis,S,NA,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_ahmansoni,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_ankaranensis,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_betsileo,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_dorsalis,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_fleuretae,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_grewcockorum,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_hubbardorum,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_jamesorum,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_microdon,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_milanoii,S,NA,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_mitsinjoensis,NA,NA,NA,S,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_mittermeieri,S,NA,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_otto,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_petteri,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_randrianasoloi,S,NA,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_sahamalazensis,S,NA,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_seali,S,NA,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_septentrionalis,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lemuroidea,NA,Lepilemur_tymerlachsoni,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lemuroidea,NA,Lepilemur_wrighti,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Arctocebus_aureus,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Arctocebus_calabarensis,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Loris_tardigradus,S,S,NA,"S, P",G,D-G,NA,NA,conflicting
+Primates,Lorisoidea,NA,Nycticebus_bengalensis,S,S,NA,NA,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Nycticebus_javanicus,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Nycticebus_menagensis,S,NA,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Lorisoidea,NA,Nycticebus_pygmaeus,S,S,NA,S,NA,NA,NA,NA,concordant
+Primates,Lorisoidea,NA,Phaner_electromontis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Tarsioidea,NA,Tarsius_dentatus,"P, G",S,NA,NA,NA,NA,NA,NA,conflicting
+Primates,Tarsioidea,NA,Tarsius_pelengensis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Primates,Tarsioidea,NA,Tarsius_wallacei,"P, G",NA,NA,NA,NA,NA,NA,NA,not applicable
+Dermoptera,NA,NA,Galeopterus_variegatus,NA,NA,NA,NA,NA,NA,NA,NA,not applicable
+Lagomorpha,NA,NA,Oryctolagus_cuniculus,NA,S,NA,NA,NA,NA,G,G,conflicting
+Rodentia,NA,NA,Mus_musculus,NA,NA,NA,NA,NA,NA,G,G,conflicting
+Rodentia,NA,NA,Mus_triton,NA,S,NA,NA,NA,NA,G,G,conflicting
+Scandentia,NA,NA,Ptilocercus,NA,NA,NA,NA,NA,NA,P,D-P,not applicable
+Scandentia,NA,NA,Tupaia_belangeri,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_chrysogaster,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_dorsalis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_glis,NA,S,NA,NA,"P, G","D-P, D-G",NA,NA,conflicting
+Scandentia,NA,NA,Tupaia_gracilis,NA,S,NA,NA,NA,NA,P,D-P,conflicting
+Scandentia,NA,NA,Tupaia_javanica,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_longipes,NA,S,NA,NA,NA,NA,P,D-P,conflicting
+Scandentia,NA,NA,Tupaia_minor,NA,S,NA,NA,NA,NA,P,D-P,conflicting
+Scandentia,NA,NA,Tupaia_moellendorffi,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_montana,NA,G,NA,NA,NA,NA,P,D-P,conflicting
+Scandentia,NA,NA,Tupaia_nicobarica,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_palawanensis,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_picta,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_splendidula,NA,S,NA,NA,NA,NA,NA,NA,not applicable
+Scandentia,NA,NA,Tupaia_tana,NA,S,NA,NA,NA,NA,P,D-P,conflicting
