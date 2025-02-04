@@ -15,7 +15,7 @@ colors <- c("green", "blue", "orange", "red","skyblue","maroon")
 state_names <- c("G", "P", "S")
 
 # Plot SM Figure 2 ----
-tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
+tree_file <- "Kuderna_et_al_phylogeny.tree"
 tree <- read.tree(tree_file)
 outgroup <- c("Tupaia_belangeri", "Galeopterus_variegatus", "Mus_musculus", "Oryctolagus_cuniculus")
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
@@ -446,7 +446,7 @@ rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree"
 
 ## Get full tree and plot ----
 # start with multiple to capture uncertainty
-tree_file <- "Olivier et al 2024 data/vert phylo.nex"
+tree_file <- "Olivier_et_al_phylogeny.nex"
 trees = read.nexus(tree_file)
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
