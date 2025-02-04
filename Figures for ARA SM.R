@@ -11,7 +11,7 @@ library(readxl)
 
 rm(list = ls())
 
-colors <- c("blue", "green", "orange", "red","maroon","skyblue")
+colors <- c("green", "blue", "orange", "red","skyblue","maroon")
 state_names <- c("G", "P", "S")
 
 # Plot SM Figure 2 ----
@@ -80,10 +80,18 @@ for (i in 1:length(genus_clades$clade)) {
   )
 }
 
+um_tree$root.edge <- 2
+
 # final plot SM Figure 2
 
-p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
-  # geom_tiplab(aes(label=label), size=2) +
+p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d # +
+  # geom_tiplab(aes(label=label), size=2) + uncomment for tip labels
+  # geom_text(aes(label=node)) # uncomment for node labels
+p <- rotate(p, 417) # flip genera within Tarsioidea
+p <- rotate(p, 419)
+p <- rotate(p, 320) # flip clades within Catarrhini
+p <- rotate(p, 321) # flip clades within Cercopithecoidea
+p <- p +
   geom_highlight(data=clades,
                aes(node=node,
                    fill=clade),
@@ -92,7 +100,7 @@ p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
                # show.legend = FALSE) +
   scale_fill_manual(
     values=colors,
-    breaks = c("Lemuroidea", "Lorisoidea", "Tarsioidea", "Ceboidea", "Hominoidea", "Cercopithecoidea")) +
+    breaks = c("Lorisoidea", "Lemuroidea", "Tarsioidea", "Ceboidea", "Cercopithecoidea", "Hominoidea")) +
   geom_cladelab(data=genus_clades,
                 mapping=aes(node=node, label=clade),
                 fontsize=3.5,
@@ -104,16 +112,17 @@ p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d +
   geom_tree(linewidth=0.3) +
   geom_tippoint(size = 0.2) +
   theme(legend.position="left",
-        legend.title = element_text(size=16), #change legend title font size
-        legend.text = element_text(size=12)) #change legend text font size)
+        legend.title = element_text(size=16), # change legend title font size
+        legend.text = element_text(size=12)) # change legend text font size)
+p <- p + geom_rootedge()
 
-p # save this as a high resolution PNG file
+p # save this as a high resolution PNG file 1200 x 900 px
 
 rm(list = ls())
 
-# Process Olivier et al dataset to generate base data ----
+# Process Olivier et al dataset to generate base dataset ----
 ## Load character data from Olivier et al, with additional taxonomic levels added
-base_data <- read_csv("Olivier et al 2024 data/dataG.csv", col_names = TRUE)
+base_data <- read_csv("dataG for ARA.csv", col_names = TRUE)
 base_data <- base_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Genus_species`, "_")[[1]][1]) |>
@@ -138,35 +147,36 @@ write_csv(base_data, "base_data.csv")
 
 rm(list = ls())
 
-# Data wrangling to add to base dataset ----
+# Data wrangling to generate list of 10 datasets for analysis ----
 
 ## Load in updated Olivier et al data... we keep these base data for all primates other than nocturnal strepsirrhines and tarsiers
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
 ## Columns to keep
-keep_columns <- c("Order", "Superfamily", "Family", "Species", "Kappeler & Pozzi 3 state","Lukas & Clutton-Brock 3 state", "Olivier et al 3 state", "Shultz et al 3 state", "Müller & Thalman 3 state", "Müller & Thalman 3 state - dispersed", "Additional 3 state", "Additional 3 state - dispersed", "Conflicting Character State Assignment?")
+keep_columns <- c("Order", "Superfamily", "Family", "Species", "Kappeler & Pozzi 3 state","Lukas & Clutton-Brock 3 state", "Olivier et al 3 state", "Shultz et al 3 state", "Müller & Thalman 3 state", "Müller & Thalman 5 state", "Additional 3 state", "Additional 5 state")
 
-## Load in comparison dataset from Excel... we join this to base data from Olivier et al for all primates other than nocturnal strepsirrhines and tarsiers
-comparison_data <- read_excel("comparison table.xlsx", sheet = 1, col_names = TRUE) |>
+## Load in comparison dataset from Excel...
+## We join this to base data from Olivier et al for all primates other than nocturnal strepsirrhines and tarsiers
+comparison_data <- read_excel("SM Table 2.xlsx", sheet = 1, col_names = TRUE) |>
   select(all_of(keep_columns)) |>
-  mutate(`Species` = str_replace(`Species`, " ", "_"))
-
+  mutate(`Species` = str_replace(`Species`, " ", "_")) # split scientific name
 combined_data <- full_join(base_data, comparison_data, by = c("Species" = "Species")) |>
-  mutate(Order.y = if_else(is.na(Order.y), Order.x, Order.y)) |>
+  mutate(Order.y = if_else(is.na(Order.y), Order.x, Order.y)) |> # winnow to single Order column and drop extra
   mutate(Order.x = if_else(is.na(Order.x), Order.y, Order.x)) |>
-  mutate(Superfamily.y = if_else(is.na(Superfamily.y), Superfamily.x, Superfamily.y)) |>
+  mutate(Superfamily.y = if_else(is.na(Superfamily.y), Superfamily.x, Superfamily.y)) |> # winnow to single Superfamily column and drop extra
   mutate(Superfamily.x = if_else(is.na(Superfamily.x), Superfamily.y, Superfamily.x)) |>
-  select(-c("Order.y", "Superfamily.y", "Family")) |> rename(`Order` = `Order.x`, `Superfamily` = `Superfamily.x`) |>
-  distinct() |>
-  mutate(keep_index = !is.na(`character_data`) & !(Superfamily %in% c("Lemuroidea", "Lorisoidea", "Tarsioidea"))) |>
+  select(-c("Order.y", "Superfamily.y", "Family")) |> rename(`Order` = `Order.x`, `Superfamily` = `Superfamily.x`) |> # rename single Order and Superfamily columns
+  distinct() |> # keep distinct rows
+  mutate(keep_index = !is.na(`character_data`) & !(Superfamily %in% c("Lemuroidea", "Lorisoidea", "Tarsioidea"))) |> # make an index to keep data from non-tarsiers and non-strepsirhines
   rowwise() |>
-  mutate(keep_index = if_else(keep_index == FALSE & Genus %in% c("Lemur", "Eulemur", "Hapalemur", "Prolemur", "Varecia", "Propithecus", "Indri"), TRUE, keep_index)) |>
+  mutate(keep_index = if_else(keep_index == FALSE & Genus %in% c("Lemur", "Eulemur", "Hapalemur", "Prolemur", "Varecia", "Propithecus", "Indri"), TRUE, keep_index)) |> # add index to keep diurnal and cathermal strepsirhines
+  # replace data in `character_data` with data from the appropriate column from the comparison_data table
   mutate(`Olivier et al 3 state` = if_else(keep_index == TRUE & is.na(`Olivier et al 3 state`), `character_data`, `Olivier et al 3 state`)) |>
   mutate(`Kappeler & Pozzi 3 state` = if_else(keep_index == TRUE & is.na(`Kappeler & Pozzi 3 state`), `character_data`, `Kappeler & Pozzi 3 state`)) |>
   mutate(`Lukas & Clutton-Brock 3 state` = if_else(keep_index == TRUE & is.na(`Lukas & Clutton-Brock 3 state`), `character_data`, `Lukas & Clutton-Brock 3 state`)) |>
   mutate(`Shultz et al 3 state` = if_else(keep_index == TRUE & is.na(`Shultz et al 3 state`), `character_data`, `Shultz et al 3 state`)) |>
   mutate(`Müller & Thalman 3 state` = if_else(keep_index == TRUE & is.na(`Müller & Thalman 3 state`), `character_data`, `Müller & Thalman 3 state`)) |>
-  mutate(`Müller & Thalman 3 state - dispersed` = if_else(keep_index == TRUE & is.na(`Müller & Thalman 3 state - dispersed`), `character_data`, `Müller & Thalman 3 state - dispersed`)) |>
+  mutate(`Müller & Thalman 5 state` = if_else(keep_index == TRUE & is.na(`Müller & Thalman 5 state`), `character_data`, `Müller & Thalman 5 state`)) |>
   select(-c("character_data", "keep_index"))
 
 ## Save this data file
@@ -176,29 +186,29 @@ rm(list = ls())
 
 combined_data <- read_csv("combined_data.csv", col_names = TRUE)
 
-## Now create various datasets based on combined base_data + nocturnal strepsirrhine, tarsier, and outgroup character states
+## Now create working datasets based on combined base_data + nocturnal strepsirrhine, tarsier, and outgroup character states
 d <- list() # list to hold datasets
 s <- list() # list to hold study names
 
-## Olivier et al
+## Olivier et al 3 state
 d[[1]] <- combined_data |>
   filter(!is.na(`Olivier et al 3 state`)) |>
   mutate(character_data = `Olivier et al 3 state`) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[1]] <- "Olivier et al"
+s[[1]] <- "Olivier et al 3 state "
 
-## Olivier et al - adding in my data for outgroup taxa
+## Olivier et al 3 state - adding in additional data for outgroup taxa
 d[[2]] <- combined_data |>
   filter(!is.na(`Olivier et al 3 state`) | !is.na(`Additional 3 state`)) |>
   mutate(character_data = if_else(!is.na(`Olivier et al 3 state`), `Olivier et al 3 state`, `Additional 3 state`)) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[2]] <- "Olivier et al additional"
+s[[2]] <- "Olivier et al 3 state additional"
 
-## Kappeler & Pozzi
+## Kappeler & Pozzi 3 state
 d[[3]] <- combined_data |>
   filter(!is.na(`Kappeler & Pozzi 3 state`)) |>
   mutate(character_data = `Kappeler & Pozzi 3 state`) |>
@@ -206,9 +216,9 @@ d[[3]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[3]] <- "Kappeler & Pozzi"
+s[[3]] <- "Kappeler & Pozzi 3 state "
 
-## Kappeler & Pozzi - adding in my data for outgroup taxa
+## Kappeler & Pozzi 3 state - adding in additional data for outgroup taxa
 d[[4]] <- combined_data |>
   filter(!is.na(`Kappeler & Pozzi 3 state`) | !is.na(`Additional 3 state`)) |>
   mutate(character_data = if_else(!is.na(`Kappeler & Pozzi 3 state`), `Kappeler & Pozzi 3 state`, `Additional 3 state`)) |>
@@ -216,36 +226,28 @@ d[[4]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[4]] <- "Kappeler & Pozzi additional"
+s[[4]] <- "Kappeler & Pozzi 3 state additional"
 
-## Lukas & Clutton-Brock
+## Lukas & Clutton-Brock 3 state
 d[[5]] <- combined_data |>
   filter(!is.na(`Lukas & Clutton-Brock 3 state`)) |>
   mutate(character_data = `Lukas & Clutton-Brock 3 state`) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[5]] <- "Lukas & Clutton-Brock"
+s[[5]] <- "Lukas & Clutton-Brock 3 state "
 
-## Lukas & Clutton-Brock - adding in my data for outgroup taxa they didn't have and replacing theirs that is incorrect
+## Lukas & Clutton-Brock 3 state - adding in additional data for outgroup taxa
+## note that this also replaces a few values that Lukas & Clutton-Brock had for outgroup taxa that are incorrect based on further review of the primate literature
 d[[6]] <- combined_data |>
   filter(!is.na(`Lukas & Clutton-Brock 3 state`) | !is.na(`Additional 3 state`)) |>
   mutate(character_data = if_else(!is.na(`Additional 3 state`), `Additional 3 state`, `Lukas & Clutton-Brock 3 state`)) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[6]] <- "Lukas & Clutton-Brock additional"
+s[[6]] <- "Lukas & Clutton-Brock 3 state additional"
 
-## Lukas & Clutton-Brock - adding in my data only for outgroup taxa they didn't have
-d[[11]] <- combined_data |>
-  filter(!is.na(`Lukas & Clutton-Brock 3 state`) | !is.na(`Additional 3 state`)) |>
-  mutate(character_data = if_else(!is.na(`Lukas & Clutton-Brock 3 state`), `Lukas & Clutton-Brock 3 state`, `Additional 3 state`)) |>
-  select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
-  rowwise() |>
-  mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[11]] <- "Lukas & Clutton-Brock additional 2"
-
-## Müller & Thalman
+## Müller & Thalman 3 state
 d[[7]] <- combined_data |>
   filter(!is.na(`Müller & Thalman 3 state`)) |>
   mutate(character_data = `Müller & Thalman 3 state`) |>
@@ -253,9 +255,9 @@ d[[7]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[7]] <- "Müller & Thalman"
+s[[7]] <- "Müller & Thalman 3 state "
 
-## Müller & Thalman - adding in my data for outgroup taxa
+## Müller & Thalman 3 state - adding in additional data for outgroup taxa
 d[[8]] <- combined_data |>
   filter(!is.na(`Müller & Thalman 3 state`) | !is.na(`Additional 3 state`)) |>
   mutate(character_data = if_else(!is.na(`Müller & Thalman 3 state`), `Müller & Thalman 3 state`, `Additional 3 state`)) |>
@@ -263,27 +265,27 @@ d[[8]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[8]] <- "Müller & Thalman additional"
+s[[8]] <- "Müller & Thalman 3 state additional"
 
-## Müller & Thalman - dispersed
+## Müller & Thalman 5 state
 d[[9]] <- combined_data |>
-  filter(!is.na(`Müller & Thalman 3 state - dispersed`)) |>
-  mutate(character_data = `Müller & Thalman 3 state - dispersed`) |>
+  filter(!is.na(`Müller & Thalman 5 state`)) |>
+  mutate(character_data = `Müller & Thalman 5 state`) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`))
-s[[9]] <- "Müller & Thalman - dispersed"
+s[[9]] <- "Müller & Thalman 5 state"
 
-## Müller & Thalman - dispersed - adding in my data for outgroup taxa
+## Müller & Thalman 5 state - adding in additional data for outgroup taxa
 d[[10]] <- combined_data |>
-  filter(!is.na(`Müller & Thalman 3 state - dispersed`) | !is.na(`Additional 3 state - dispersed`)) |>
-  mutate(character_data = if_else(!is.na(`Müller & Thalman 3 state - dispersed`), `Müller & Thalman 3 state - dispersed`, `Additional 3 state - dispersed`)) |>
+  filter(!is.na(`Müller & Thalman 5 state`) | !is.na(`Additional 5 state`)) |>
+  mutate(character_data = if_else(!is.na(`Müller & Thalman 5 state`), `Müller & Thalman 5 state`, `Additional 5 state`)) |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`))
-s[[10]] <- "Müller & Thalman additional - dispersed"
+s[[10]] <- "Müller & Thalman 5 state additional"
 
 rm(list = setdiff(ls(), c("d", "s")))
 
@@ -293,10 +295,11 @@ rm(list = setdiff(ls(), c("d", "s")))
 tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
 tree <- read.tree(tree_file)
 
-# Replace Cephalopachus and Carlito with Tarsis
+# Replace Cephalopachus and Carlito with Tarsius to match species in Kuderna et al
 tree$tip.label <- gsub("Cephalopachus", "Tarsius", tree$tip.label)
 tree$tip.label <- gsub("Carlito", "Tarsius", tree$tip.label)
 
+# Create vector with outgroup taxa
 outgroup <- c("Mus_musculus", "Oryctolagus_cuniculus", "Tupaia_belangeri", "Galeopterus_variegatus")
 is.rooted.phylo(tree)
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
@@ -304,11 +307,11 @@ is.rooted.phylo(tree)
 is.binary(tree)
 tree <- multi2di(tree) # force tree to be binary
 is.binary(tree)
-Kuderna_et_al_tree <- tree
+Kuderna_et_al_tree <- tree # hold the original tree
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
-# plot full tree
+# test plot of full tree
 p <- ggtree(um_tree,
             layout = "fan",
             size = 0.3,
@@ -317,8 +320,28 @@ p <- ggtree(um_tree,
   geom_tiplab(size = 2)
 p
 
-## Repeat for each dataset ----
-Kuderna_et_al_tree_res <- tibble(dataset = character(), ntaxa = numeric(), ntips = numeric(), phylo = character(), method1 = character(), model1 = character(), DG1 = numeric(), DP1 = numeric(), G1 = numeric(), P1 = numeric(), S1 = numeric(), sum1 = numeric(), method2 = character(), model2 = character(), DG2 = numeric(), DP2 = numeric(), G2 = numeric(), P2 = numeric(), S2 = numeric(), sum2 = numeric())
+## Repeat the following for each dataset ----
+## first defin a data structure to hold ASR results
+Kuderna_et_al_tree_res <- tibble(dataset = character(),
+                                 ntaxa = numeric(),
+                                 ntips = numeric(),
+                                 phylo = character(),
+                                 method1 = character(),
+                                 model1 = character(),
+                                 DG1 = numeric(),
+                                 DP1 = numeric(),
+                                 G1 = numeric(),
+                                 P1 = numeric(),
+                                 S1 = numeric(),
+                                 sum1 = numeric(),
+                                 method2 = character(),
+                                 model2 = character(),
+                                 DG2 = numeric(),
+                                 DP2 = numeric(),
+                                 G2 = numeric(),
+                                 P2 = numeric(),
+                                 S2 = numeric(),
+                                 sum2 = numeric())
 
 for (i in 1:length(d)){
   if (i == 9 | i == 10){
@@ -427,7 +450,7 @@ tree_file <- "Olivier et al 2024 data/vert phylo.nex"
 trees = read.nexus(tree_file)
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
-# create consensus phylogeny for robustness checks
+# create consensus phylogeny
 tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
 is.rooted.phylo(tree)
 outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
@@ -438,11 +461,11 @@ is.binary(tree)
 tree <- multi2di(tree) # force tree to be binary
 is.binary(tree)
 tree$node.label <- NULL
-Olivier_et_al_tree <- tree
+Olivier_et_al_tree <- tree # hold the original tree
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
-# plot full tree
+# test plot of full tree
 p <- ggtree(um_tree,
             layout = "circular",
             size = 0.3,
@@ -567,6 +590,8 @@ state_names <- c("D-G", "D-P", "G", "P", "S")
 for (i in 1:length(d)){
   for (j in 1:100) {
     for (k in c(Kuderna_et_al_tree, Olivier_et_al_tree)){
+      # do for both trees...
+      # note that we do not need to rename tarsier genera again because we have held the Kuderna et al tree
     tree <- k
     # pick one species from each Genus where the Species is represented in the given phylogeny
     data_subset <- d[[i]] |>
@@ -680,6 +705,8 @@ summary <- summary |>
   filter(value != 0) |>
   arrange(dataset, tree, display_order)
 
+
+
 p <- ggplot(summary, aes(x="", y=value, fill=name)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
@@ -694,8 +721,9 @@ p
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree", "summary", "p")))
 
+## Lines below plots of ASR at Primate Root for 10 different datasets across two different phylogenies where we use two different models of ASR
+
 Kuderna_et_al_summary <- pivot_longer(Kuderna_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2")) |>
-  filter(dataset != "Lukas & Clutton-Brock additional 2") |>
   select(dataset, phylo, name, value)
 
 Kuderna_et_al_summary <- Kuderna_et_al_summary |>
@@ -713,7 +741,6 @@ Kuderna_et_al_summary <- Kuderna_et_al_summary |>
   mutate(ypos = cumsum(prop)- 0.5 * prop )
 
 Olivier_et_al_summary <- pivot_longer(Olivier_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2")) |>
-  filter(dataset != "Lukas & Clutton-Brock additional 2") |>
   select(dataset, phylo, name, value)
 
 Olivier_et_al_summary <- Olivier_et_al_summary |>
