@@ -10,8 +10,6 @@ library(here)
 
 rm(list = ls()) # clear workspace
 
-colors <- c("green", "blue", "orange", "red","skyblue","maroon")
-
 # Plot SM Figure 2 ----
 tree_file <- "Kuderna_et_al_phylogeny.tree"
 tree <- read.tree(tree_file)
@@ -83,7 +81,7 @@ for (i in 1:length(genera$clade)) {
 um_tree$root.edge <- 2
 
 ## final plot SM Figure 2
-
+colors <- c("green", "blue", "orange", "red","skyblue","maroon")
 p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+%
   d # +
   # geom_tiplab(aes(label=label), size=2) + uncomment for tip labels
@@ -149,7 +147,6 @@ write_csv(base_data, "base_data.csv")
 rm(list = ls())
 
 # Data wrangling to generate list of datasets for analysis ----
-
 ## load in updated Olivier et al data... we keep these base data for all primates other than nocturnal strepsirrhines and tarsiers
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
@@ -185,9 +182,9 @@ write_csv(combined_data, "combined_data.csv")
 
 rm(list = ls())
 
+# Create lists of working datasets ----
+## based on combined_data and additional outgroup character states
 combined_data <- read_csv("combined_data.csv", col_names = TRUE)
-
-## now create lists of working datasets based on combined_data and additional outgroup character states
 d <- list() # list to hold datasets
 s <- list() # list to hold study names
 
@@ -291,7 +288,6 @@ s[[10]] <- "Müller & Thalman 5 state additional"
 rm(list = setdiff(ls(), c("d", "s")))
 
 # Analyses using Kuderna et al phylogeny ----
-
 ## Get full tree and plot ----
 tree_file <- "Kuderna_et_al_phylogeny.tree"
 tree <- read.tree(tree_file)
@@ -322,7 +318,7 @@ p <- ggtree(um_tree,
 p
 
 ## Repeat the following for each dataset ----
-## define a data structure to hold ASR results
+### define a data structure to hold ASR results
 Kuderna_et_al_tree_res <- tibble(dataset = character(),
                                  ntaxa = numeric(),
                                  ntips = numeric(),
@@ -342,8 +338,10 @@ Kuderna_et_al_tree_res <- tibble(dataset = character(),
                                  P2 = numeric(),
                                  S2 = numeric())
 
-## loop through all of the datasets
+### loop through all of the datasets
 for (i in 1:length(d)){
+i <- 1
+for (i in 1:1) {
   # use more colors and state_names for the Müller & Thalmann 5 state datasets
   if (i == 9 | i == 10) {
     colors <- c("skyblue", "red", "blue", "green", "orange")
@@ -380,31 +378,39 @@ for (i in 1:length(d)){
   character_data <- as.factor(character_data) # convert states to a factor (required for discrete traits in phytools)
   tree <- t$phy
 
-  #### Run ML Ancestral State Reconstruction with ER ----
-  ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER") # default = marginal = FALSE, returns empirical Bayesian posterior probabilities
+  #### Run ML Ancestral State Reconstruction ----
+  # ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER") # equal rates model
+  # default = marginal = FALSE, returns empirical Bayesian posterior probabilities
+  # or...
+  fit <- fitMk(tree, character_data, model = "ER", pi = "fitzjohn")
+  asr <- ancr(fit, tips = TRUE)
+  asr_probs <- asr$ace
+  asr_node_pies <- asr_probs[(length(tree$tip.label) + 1):(length(tree$tip.label) + tree$Nnode), ]
+  asr_tip_pies <- asr_probs[1:length(tree$tip.label), ]
 
-  #### Run SCM Ancestral State Reconstruction with ER ----
+  #### Run SCM Ancestral State Reconstruction ----
   n_simulations <- 100  # Number of stochastic maps to generate
-  scm_results <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn")
+  scm <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn") # equal rates model, fitzjohn root priot
 
-  #### summarize the stochastic maps
-  summary_maps <- summary(scm_results)
+ #### summarize the stochastic maps
+  summary_scm <- summary(scm)
 
   #### extract posterior probabilities and pies for internal nodes
-  posterior_probs <- summary_maps$ace
-  sim_node_pies <- posterior_probs[1:tree$Nnode, ]
+  scm_probs <- summary_scm$ace
+  scm_node_pies <- scm_probs[1:tree$Nnode, ]
 
   #### tip states
-  sim_tip_pies <- summary_maps$tips
+  scm_tip_pies <- summary_scm$tips
 
-  #### Plotting ML ----
+  #### Plotting ML Results----
   um_tree <- force.ultrametric(tree, method = "extend")
   um_tree$root.edge <- 2
 
   plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
 
   #### add pie charts for ancestral states at internal nodes
-  node_pies <- as.matrix(ace_results$lik.anc)
+  # node_pies <- as.matrix(ace_results$lik.anc)
+  node_pies <- as.matrix(asr_node_pies)
   nodelabels(
     pie = node_pies,
     piecol = colors,
@@ -412,10 +418,10 @@ for (i in 1:length(d)){
   )
 
   #### add pie charts for tips
-  tip_pies <- as.factor(character_data)
-  tip_pies <- to.matrix(tip_pies, levels(tip_pies))
+  # tip_pies <- as.factor(character_data)
+  # tip_pies <- to.matrix(tip_pies, levels(tip_pies))
   tiplabels(
-    pie = tip_pies,
+    pie = asr_tip_pies,
     piecol = colors,
     cex = 0.2
   )
@@ -446,7 +452,6 @@ for (i in 1:length(d)){
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree")))
 
 # Analyses using Olivier et al phylgeny ----
-
 ## Get full tree and plot ----
 ## start with multiple trees to capture uncertainty
 tree_file <- "Olivier_et_al_phylogeny.nex"
@@ -478,7 +483,7 @@ p <- ggtree(um_tree,
 p
 
 ## Repeat the following for each dataset ----
-## define a data structure to hold ASR results
+### define a data structure to hold ASR results
 Olivier_et_al_tree_res <- tibble(dataset = character(),
                                  ntaxa = numeric(),
                                  ntips = numeric(),
@@ -498,7 +503,7 @@ Olivier_et_al_tree_res <- tibble(dataset = character(),
                                  P2 = numeric(),
                                  S2 = numeric())
 
-## loop through all of the datasets
+### loop through all of the datasets
 for (i in 1:length(d)){
   # use more colors and state_names for the Müller & Thalmann 5 state datasets
   if (i == 9 | i == 10){
@@ -537,12 +542,13 @@ for (i in 1:length(d)){
   tree <- t$phy
   tree$node.label <- 1:Nnode(tree) + length(tree$tip.label)
 
-  #### Run ML Ancestral State Reconstruction with ER ----
-  ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER") # default = marginal = FALSE, returns empirical Bayesian posterior probabilities
+  #### Run ML Ancestral State Reconstruction ----
+  ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER") # equal rates model
+  # default = marginal = FALSE, returns empirical Bayesian posterior probabilities
 
-  #### Run SCM Ancestral State Reconstruction with ER ----
+  #### Run SCM Ancestral State Reconstruction ----
   n_simulations <- 100  # Number of stochastic maps to generate
-  scm_results <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn")
+  scm_results <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn") # equal rates model
 
   #### summarize the stochastic maps
   summary_maps <- summary(scm_results)
@@ -554,7 +560,7 @@ for (i in 1:length(d)){
   #### tip states
   sim_tip_pies <- summary_maps$tips
 
-  #### Plotting ML ----
+  #### Plotting ML Results ----
   um_tree <- force.ultrametric(tree, method = "extend")
   um_tree$root.edge <- 2
 
