@@ -1,18 +1,16 @@
+# Load necessary packages
 library(tidyverse)
 library(treedata.table)
 library(ape)
 library(ggtree)
 library(ggrepel)
-library(castor)
 library(phytools)
-library(phangorn)
-library(here)
 library(readxl)
+library(here)
 
-rm(list = ls())
+rm(list = ls()) # clear workspace
 
 colors <- c("green", "blue", "orange", "red","skyblue","maroon")
-state_names <- c("G", "P", "S")
 
 # Plot SM Figure 2 ----
 tree_file <- "Kuderna_et_al_phylogeny.tree"
@@ -22,69 +20,72 @@ tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
 is.rooted.phylo(tree)
 is.binary(tree)
 
-# quick plot
+## quick plot
 plot.phylo(tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Primate Phylogeny")
-# note: tips are not aligned
+## note: tips are not aligned
 
-d <- read_csv("Kuderna et al taxa.csv", col_names = TRUE) # adds in other taxonomic levels for taxa in Kuderna et al data set
+d <- read_csv("Kuderna_et_al_taxa.csv", col_names = TRUE) # adds in other taxonomic levels for taxa in Kuderna et al data set
 d <- d |>
   rowwise() |>
   mutate(Genus = strsplit(label, "_")[[1]][1])
 
-# make treedata.table object
+## make treedata.table object
 t <- as.treedata.table(tree = tree, data = as.data.frame(d))
 
-# t$dat holds the data...
+## t$dat holds the data...
 t$dat <- t$dat |>
   rowwise() |>
   mutate(Genus = strsplit(tip.label, "_")[[1]][1])
 
-# t$phy holds the phylogeny
+## t$phy holds the phylogeny
 tree <- t$phy
 
-# force the tree to be ultrametric for visualization
+## force the tree to be ultrametric for visualization
 um_tree <- force.ultrametric(tree)
 plot.phylo(um_tree, type = "fan", cex = 0.6, label.offset = 4, no.margin = TRUE, main = "Primate Phylogeny")
-# now tips are aligned
+## now tips are aligned
 
-# plot with ggplot
-p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d + geom_tiplab(aes(label=label), size=2)
+## plot with ggplot
+p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+%
+  d +
+  geom_tiplab(aes(label=label), size=2)
 
-# code below is to get nodes for MRCA of each Superfamily and make dataframe for clade nodes
-clades <- tibble(
+## make a tibble to hold the node number for the MRCA of each Superfamily...
+superfamilies <- tibble(
   clade = c(unique(d$Superfamily)),
   node = NA
 ) |>
   filter(!is.na(clade) & clade != "Primates")
 
-# find the MRCA for each clade
-for (i in 1:length(clades$clade)) {
-  clades$node[i] <- MRCA(
+## ... and then find the node number for the MRCA
+for (i in 1:length(superfamilies$clade)) {
+  superfamilies$node[i] <- MRCA(
     tree,
-    d |> filter(Superfamily == clades$clade[i]) |> pull(label)
+    d |> filter(Superfamily == superfamilies$clade[i]) |> pull(label)
   )
 }
 
-# code below is to get nodes for MRCA of each Genus and make dataframe for clade nodes
-genus_clades <- tibble(
+## make a tibble to hold the node number for the MRCA of each Genus...
+genera <- tibble(
   clade = c(unique(d$Genus)),
   node = NA
 ) |>
   filter(!is.na(clade))
 
-# find the MRCA for each clade
-for (i in 1:length(genus_clades$clade)) {
-  genus_clades$node[i] <- MRCA(
+## ... and then find the node number for the MRCA
+for (i in 1:length(genera$clade)) {
+  genera$node[i] <- MRCA(
     tree,
-    d |> filter(Genus == genus_clades$clade[i]) |> pull(label)
+    d |> filter(Genus == genera$clade[i]) |> pull(label)
   )
 }
 
 um_tree$root.edge <- 2
 
-# final plot SM Figure 2
+## final plot SM Figure 2
 
-p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+% d # +
+p <- ggtree(um_tree, size = 0.3, layout = "fan") %<+%
+  d # +
   # geom_tiplab(aes(label=label), size=2) + uncomment for tip labels
   # geom_text(aes(label=node)) # uncomment for node labels
 p <- rotate(p, 417) # flip genera within Tarsioidea
@@ -92,7 +93,7 @@ p <- rotate(p, 419)
 p <- rotate(p, 320) # flip clades within Catarrhini
 p <- rotate(p, 321) # flip clades within Cercopithecoidea
 p <- p +
-  geom_highlight(data=clades,
+  geom_highlight(data=superfamilies,
                aes(node=node,
                    fill=clade),
                alpha=0.5,
@@ -101,7 +102,7 @@ p <- p +
   scale_fill_manual(
     values=colors,
     breaks = c("Lorisoidea", "Lemuroidea", "Tarsioidea", "Ceboidea", "Cercopithecoidea", "Hominoidea")) +
-  geom_cladelab(data=genus_clades,
+  geom_cladelab(data=genera,
                 mapping=aes(node=node, label=clade),
                 fontsize=3.5,
                 align="TRUE",
@@ -116,12 +117,12 @@ p <- p +
         legend.text = element_text(size=12)) # change legend text font size)
 p <- p + geom_rootedge()
 
-p # save this as a high resolution PNG file 1200 x 900 px
+p # save this as a high resolution PNG file 1200 x 900px
 
 rm(list = ls())
 
 # Process Olivier et al dataset to generate base dataset ----
-## Load character data from Olivier et al, with additional taxonomic levels added
+## load character data from Olivier et al, with additional taxonomic levels added
 base_data <- read_csv("dataG for ARA.csv", col_names = TRUE)
 base_data <- base_data |>
   rowwise() |>
@@ -142,21 +143,21 @@ base_data <- base_data |>
     ) |>
   select(Order, Superfamily, Genus, Species, character_data)
 
-## Save this base data file
+## save this base data file
 write_csv(base_data, "base_data.csv")
 
 rm(list = ls())
 
-# Data wrangling to generate list of 10 datasets for analysis ----
+# Data wrangling to generate list of datasets for analysis ----
 
-## Load in updated Olivier et al data... we keep these base data for all primates other than nocturnal strepsirrhines and tarsiers
+## load in updated Olivier et al data... we keep these base data for all primates other than nocturnal strepsirrhines and tarsiers
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
-## Columns to keep
+## columns to keep
 keep_columns <- c("Order", "Superfamily", "Family", "Species", "Kappeler & Pozzi 3 state","Lukas & Clutton-Brock 3 state", "Olivier et al 3 state", "Shultz et al 3 state", "Müller & Thalman 3 state", "Müller & Thalman 5 state", "Additional 3 state", "Additional 5 state")
 
-## Load in comparison dataset from Excel...
-## We join this to base data from Olivier et al for all primates other than nocturnal strepsirrhines and tarsiers
+## load in comparison dataset from Excel...
+## we join this to base data for all primates other than nocturnal strepsirrhines and tarsiers
 comparison_data <- read_excel("SM Table 2.xlsx", sheet = 1, col_names = TRUE) |>
   select(all_of(keep_columns)) |>
   mutate(`Species` = str_replace(`Species`, " ", "_")) # split scientific name
@@ -179,14 +180,14 @@ combined_data <- full_join(base_data, comparison_data, by = c("Species" = "Speci
   mutate(`Müller & Thalman 5 state` = if_else(keep_index == TRUE & is.na(`Müller & Thalman 5 state`), `character_data`, `Müller & Thalman 5 state`)) |>
   select(-c("character_data", "keep_index"))
 
-## Save this data file
+## save this data file
 write_csv(combined_data, "combined_data.csv")
 
 rm(list = ls())
 
 combined_data <- read_csv("combined_data.csv", col_names = TRUE)
 
-## Now create working datasets based on combined base_data + nocturnal strepsirrhine, tarsier, and outgroup character states
+## now create lists of working datasets based on combined_data and additional outgroup character states
 d <- list() # list to hold datasets
 s <- list() # list to hold study names
 
@@ -289,17 +290,17 @@ s[[10]] <- "Müller & Thalman 5 state additional"
 
 rm(list = setdiff(ls(), c("d", "s")))
 
-# Analyses on Kuderna et al tree ----
+# Analyses using Kuderna et al phylogeny ----
 
 ## Get full tree and plot ----
-tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
+tree_file <- "Kuderna_et_al_phylogeny.tree"
 tree <- read.tree(tree_file)
 
-# Replace Cephalopachus and Carlito with Tarsius to match species in Kuderna et al
+## replace Cephalopachus and Carlito with Tarsius to match species in Kuderna et al
 tree$tip.label <- gsub("Cephalopachus", "Tarsius", tree$tip.label)
 tree$tip.label <- gsub("Carlito", "Tarsius", tree$tip.label)
 
-# Create vector with outgroup taxa
+## create a vector with outgroup taxa
 outgroup <- c("Mus_musculus", "Oryctolagus_cuniculus", "Tupaia_belangeri", "Galeopterus_variegatus")
 is.rooted.phylo(tree)
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
@@ -311,7 +312,7 @@ Kuderna_et_al_tree <- tree # hold the original tree
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
-# test plot of full tree
+## test plot of full tree
 p <- ggtree(um_tree,
             layout = "fan",
             size = 0.3,
@@ -321,7 +322,7 @@ p <- ggtree(um_tree,
 p
 
 ## Repeat the following for each dataset ----
-## first defin a data structure to hold ASR results
+## define a data structure to hold ASR results
 Kuderna_et_al_tree_res <- tibble(dataset = character(),
                                  ntaxa = numeric(),
                                  ntips = numeric(),
@@ -333,28 +334,28 @@ Kuderna_et_al_tree_res <- tibble(dataset = character(),
                                  G1 = numeric(),
                                  P1 = numeric(),
                                  S1 = numeric(),
-                                 sum1 = numeric(),
                                  method2 = character(),
                                  model2 = character(),
                                  DG2 = numeric(),
                                  DP2 = numeric(),
                                  G2 = numeric(),
                                  P2 = numeric(),
-                                 S2 = numeric(),
-                                 sum2 = numeric())
+                                 S2 = numeric())
 
+## loop through all of the datasets
 for (i in 1:length(d)){
-  if (i == 9 | i == 10){
+  # use more colors and state_names for the Müller & Thalmann 5 state datasets
+  if (i == 9 | i == 10) {
     colors <- c("skyblue", "red", "blue", "green", "orange")
     state_names <- c("D-G", "D-P", "G", "P", "S")
   } else {
     colors <- c("blue", "green", "orange", "red","maroon","skyblue")
     state_names <- c("G", "P", "S")
   }
-  ## Create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
+
+  # create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
   tree <- Kuderna_et_al_tree
   t <- as.treedata.table(tree = tree, data = as.data.frame(d[[i]]), name_column = "Species")
-
   phy <- t$phy # get the phylogeny
   is.rooted.phylo(phy) # check if it's rooted
   is.binary(phy) # check if it's binary
@@ -386,14 +387,14 @@ for (i in 1:length(d)){
   n_simulations <- 100  # Number of stochastic maps to generate
   scm_results <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn")
 
-  # Summarize the stochastic maps
+  #### summarize the stochastic maps
   summary_maps <- summary(scm_results)
 
-  # Extract posterior probabilities and pies for internal nodes
+  #### extract posterior probabilities and pies for internal nodes
   posterior_probs <- summary_maps$ace
   sim_node_pies <- posterior_probs[1:tree$Nnode, ]
 
-  # Tip states
+  #### tip states
   sim_tip_pies <- summary_maps$tips
 
   #### Plotting ML ----
@@ -402,7 +403,7 @@ for (i in 1:length(d)){
 
   plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
 
-  # Add pie charts for ancestral states at internal nodes
+  #### add pie charts for ancestral states at internal nodes
   node_pies <- as.matrix(ace_results$lik.anc)
   nodelabels(
     pie = node_pies,
@@ -410,7 +411,7 @@ for (i in 1:length(d)){
     cex = 0.2
   )
 
-  # Add pie charts for tips
+  #### add pie charts for tips
   tip_pies <- as.factor(character_data)
   tip_pies <- to.matrix(tip_pies, levels(tip_pies))
   tiplabels(
@@ -424,6 +425,7 @@ for (i in 1:length(d)){
          fill = colors,
          title = "Character States")
 
+  #### get node number for primate MRCA
   mrca <- MRCA(
     t$phy,
     t$dat |> filter(Order == "Primates") |> pull(tip.label))
@@ -437,20 +439,21 @@ for (i in 1:length(d)){
     r <- tibble(dataset = s[[i]], phylo = "Kuderna et al", ntaxa = nrow(t$dat), ntips = length(t$phy$tip.label), method1 = "ML", model1 = "ER", DG1 = 0, DP1 = 0, G1 = root_pie[,"G"], P1 = root_pie[,"P"], S1 = root_pie[,"S"], sum1 = DG1 + DP1 + G1 + P1 + S1, method2 = "SCM", model2 = "ER", DG2 = 0, DP2 = 0, G2 = sim_root_pie[, "G"], P2 = sim_root_pie[ ,"P"], S2 = sim_root_pie[ ,"S"], sum2 = DG2 + DP2 + G2 + P2 + S2)
   }
 
+  #### store results
   Kuderna_et_al_tree_res <- bind_rows(Kuderna_et_al_tree_res, r)
 }
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree")))
 
-# Analyses on Olivier et al tree ----
+# Analyses using Olivier et al phylgeny ----
 
 ## Get full tree and plot ----
-# start with multiple to capture uncertainty
+## start with multiple trees to capture uncertainty
 tree_file <- "Olivier_et_al_phylogeny.nex"
 trees = read.nexus(tree_file)
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
-# create consensus phylogeny
+## create consensus phylogeny
 tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
 is.rooted.phylo(tree)
 outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
@@ -465,7 +468,7 @@ Olivier_et_al_tree <- tree # hold the original tree
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
-# test plot of full tree
+## test plot of full tree
 p <- ggtree(um_tree,
             layout = "circular",
             size = 0.3,
@@ -474,10 +477,30 @@ p <- ggtree(um_tree,
   geom_tiplab(size = 2)
 p
 
-## Repeat for each dataset ----
-Olivier_et_al_tree_res <- tibble(dataset = character(), ntaxa = numeric(), ntips = numeric(), phylo = character(), method1 = character(), model1 = character(), DG1 = numeric(), DP1 = numeric(), G1 = numeric(), P1 = numeric(), S1 = numeric(), sum1 = numeric(), method2 = character(), model2 = character(), DG2 = numeric(), DP2 = numeric(), G2 = numeric(), P2 = numeric(), S2 = numeric(), sum2 = numeric())
+## Repeat the following for each dataset ----
+## define a data structure to hold ASR results
+Olivier_et_al_tree_res <- tibble(dataset = character(),
+                                 ntaxa = numeric(),
+                                 ntips = numeric(),
+                                 phylo = character(),
+                                 method1 = character(),
+                                 model1 = character(),
+                                 DG1 = numeric(),
+                                 DP1 = numeric(),
+                                 G1 = numeric(),
+                                 P1 = numeric(),
+                                 S1 = numeric(),
+                                 method2 = character(),
+                                 model2 = character(),
+                                 DG2 = numeric(),
+                                 DP2 = numeric(),
+                                 G2 = numeric(),
+                                 P2 = numeric(),
+                                 S2 = numeric())
 
+## loop through all of the datasets
 for (i in 1:length(d)){
+  # use more colors and state_names for the Müller & Thalmann 5 state datasets
   if (i == 9 | i == 10){
     colors <- c("skyblue", "red", "blue", "green", "orange")
     state_names <- c("D-G", "D-P", "G", "P", "S")
@@ -485,10 +508,10 @@ for (i in 1:length(d)){
     colors <- c("blue", "green", "orange", "red","maroon","skyblue")
     state_names <- c("G", "P", "S")
   }
-  ## Create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
+
+  # create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
   tree <- Olivier_et_al_tree
   t <- as.treedata.table(tree = tree, data = as.data.frame(d[[i]]), name_column = "Species")
-
   phy <- t$phy # get the phylogeny
   is.rooted.phylo(phy) # check if it's rooted
   is.binary(phy) # check if it's binary
@@ -521,14 +544,14 @@ for (i in 1:length(d)){
   n_simulations <- 100  # Number of stochastic maps to generate
   scm_results <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn")
 
-  # Summarize the stochastic maps
+  #### summarize the stochastic maps
   summary_maps <- summary(scm_results)
 
-  # Extract posterior probabilities and pies for internal nodes
+  #### extract posterior probabilities and pies for internal nodes
   posterior_probs <- summary_maps$ace
   sim_node_pies <- posterior_probs[1:tree$Nnode, ]
 
-  # Tip states
+  #### tip states
   sim_tip_pies <- summary_maps$tips
 
   #### Plotting ML ----
@@ -537,7 +560,7 @@ for (i in 1:length(d)){
 
   plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
 
-  # Add pie charts for ancestral states at internal nodes
+  #### add pie charts for ancestral states at internal nodes
   node_pies <- as.matrix(ace_results$lik.anc)
   nodelabels(
     pie = node_pies,
@@ -545,7 +568,7 @@ for (i in 1:length(d)){
     cex = 0.2
   )
 
-  # Add pie charts for tips
+  #### add pie charts for tips
   tip_pies <- as.factor(character_data)
   tip_pies <- to.matrix(tip_pies, levels(tip_pies))
   tiplabels(
@@ -559,6 +582,7 @@ for (i in 1:length(d)){
          fill = colors,
          title = "Character States")
 
+  #### get node number for primate MRCA
   mrca <- MRCA(
     t$phy,
     t$dat |> filter(Order == "Primates") |> pull(tip.label))
@@ -572,26 +596,27 @@ for (i in 1:length(d)){
     r <- tibble(dataset = s[[i]], phylo = "Olivier et al", ntaxa = nrow(t$dat), ntips = length(t$phy$tip.label), method1 = "ML", model1 = "ER", DG1 = 0, DP1 = 0, G1 = root_pie[ ,"G"], P1 = root_pie[ , "P"], S1 = root_pie[, "S"], sum1 = DG1 + DP1 + G1 + P1 + S1, method2 = "SCM", model2 = "ER", DG2 = 0 , DP2 = 0, G2 = sim_root_pie[ , "G"], P2 = sim_root_pie[ , "P"], S2 = sim_root_pie[ ,"S"], sum2 = DG2 + DP2 + G2 + P2 + S2)
   }
 
+  #### store results
   Olivier_et_al_tree_res <- bind_rows(Olivier_et_al_tree_res, r)
 }
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree")))
 
 # Analyses of effects of taxon sampling ----
-# Here we can filter for taxa of interest or take random samples
+## here we can filter for taxa of interest or take random samples
 
 root_pies <- tibble(dataset = numeric(), rep = numeric(), primateMRCA = numeric(), DG = numeric(), DP = numeric(), G = numeric(), P = numeric(), S = numeric())
 
 colors <- c("skyblue", "red", "blue", "green", "orange")
 state_names <- c("D-G", "D-P", "G", "P", "S")
 
-# Generate 100 samples with 1 species per genus for each dataset and do ASR
+## generate 100 samples with 1 species per genus for each dataset and do ASR
 
 for (i in 1:length(d)){
   for (j in 1:100) {
     for (k in c(Kuderna_et_al_tree, Olivier_et_al_tree)){
       # do for both trees...
-      # note that we do not need to rename tarsier genera again because we have held the Kuderna et al tree
+      # note that we do *not* need to rename Tarsier genera again because we have held the Kuderna et al tree
     tree <- k
     # pick one species from each Genus where the Species is represented in the given phylogeny
     data_subset <- d[[i]] |>
@@ -636,7 +661,7 @@ for (i in 1:length(d)){
     # um_tree$root.edge <- 2
     # plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
 
-    # Add pie charts for ancestral states at internal nodes
+    #### add pie charts for ancestral states at internal nodes
     node_pies <- as.matrix(ace_results$lik.anc)
 
     # nodelabels(
@@ -660,7 +685,7 @@ for (i in 1:length(d)){
     #        fill = colors,
     #        title = "Character States")
 
-    # Get node number for MRCA of all Primates
+    #### get node number for MRCA of all Primates
     mrca <- MRCA(
       t$phy,
       t$dat |> filter(Order == "Primates") |> pull(tip.label))
@@ -705,8 +730,6 @@ summary <- summary |>
   filter(value != 0) |>
   arrange(dataset, tree, display_order)
 
-
-
 p <- ggplot(summary, aes(x="", y=value, fill=name)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
@@ -721,7 +744,7 @@ p
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree", "summary", "p")))
 
-## Lines below plots of ASR at Primate Root for 10 different datasets across two different phylogenies where we use two different models of ASR
+# Lines below generate plots of ASR at Primate Root for 10 different datasets across two different phylogenies where we use two different models of ASR
 
 Kuderna_et_al_summary <- pivot_longer(Kuderna_et_al_tree_res, cols = c("DG1", "DP1", "G1", "P1", "S1","DG2", "DP2", "G2", "P2", "S2")) |>
   select(dataset, phylo, name, value)
