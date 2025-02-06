@@ -1013,8 +1013,6 @@ t$phy <- root(t$phy, outgroup = outgroup, resolve.root = TRUE) # reroot the tree
 phy <- t$phy
 is.rooted.phylo(phy) # check if it's rooted
 is.binary(phy) # check if it's binary
-plot(phy, type = "fan" , cex = 0.4)
-nodelabels(cex = 0.4)
 phy <- rotateNodes(phy, 219)
 phy <- rotateNodes(phy, 220)
 phy <- rotateNodes(phy, 310)
@@ -1043,24 +1041,33 @@ Mk <- ancr(aov, type = "marginal", weighted = FALSE, tips = TRUE)
 Mk_probs <- Mk$ace
 Mk_node_pies <- Mk_probs[(length(tree$tip.label) + 1):(length(tree$tip.label) + tree$Nnode), ]
 Mk_tip_pies <- Mk_probs[1:length(tree$tip.label), ]
-nsim <- 100
-scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
+# nsim <- 100
+# scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
 
 #### summarize the stochastic maps
-summary_scm <- summary(scmSYM)
+# summary_scm <- summary(scmSYM)
 
 #### extract posterior probabilities and pies for internal nodes and tips
-scm_probs <- summary_scm$ace
-scm_node_pies <- scm_probs[1:tree$Nnode, ]
-scm_tip_pies <- summary_scm$tips
+# scm_probs <- summary_scm$ace
+# scm_node_pies <- scm_probs[1:tree$Nnode, ]
+# scm_tip_pies <- summary_scm$tips
+
+# dev.new(width=900, height=900, unit="px")
 
 um_tree <- force.ultrametric(tree, method = "extend")
 um_tree$root.edge <- 2
 
 colors <- c("blue", "green", "orange")
 state_names <- c("G", "P", "S")
-plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 2,
-           no.margin = TRUE, root.edge = TRUE, open.angle = 1)
+plot.phylo(um_tree,
+           type = "fan",
+           cex = 0.5,
+           label.offset = 2,
+           no.margin = TRUE,
+           root.edge = TRUE,
+           open.angle = 1
+)
+
 #### add pie charts for ancestral states at internal nodes
 nodelabels(
   pie = Mk_node_pies,
@@ -1075,7 +1082,8 @@ tiplabels(
   cex = 0.15
 )
 
-legend("topleft",
+legend("topright",
+       inset = c(0.025),
        legend = state_names,
        fill = colors,
        title = "Character States")
