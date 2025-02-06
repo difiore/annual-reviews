@@ -272,7 +272,8 @@ d[[9]] <- combined_data |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
-  mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`))
+  mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`)) |>
+  mutate(`character_data` = if_else(`Species` == "Pongo_pygmaeus", "D-G", `character_data`))
 s[[9]] <- "Müller & Thalman 5 state"
 
 ## Müller & Thalman 5 state - adding in additional data for outgroup taxa
@@ -282,7 +283,8 @@ d[[10]] <- combined_data |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
-  mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`))
+  mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`)) |>
+  mutate(`character_data` = if_else(`Species` == "Pongo_pygmaeus", "D-G", `character_data`))
 s[[10]] <- "Müller & Thalman 5 state additional"
 
 rm(list = setdiff(ls(), c("d", "s")))
@@ -325,23 +327,22 @@ Kuderna_et_al_tree_res <- tibble(dataset = character(),
                                  phylo = character(),
                                  method1 = character(),
                                  model1 = character(),
-                                 DG1 = numeric(),
-                                 DP1 = numeric(),
-                                 G1 = numeric(),
-                                 P1 = numeric(),
-                                 S1 = numeric(),
+                                 MkDG = numeric(),
+                                 MkDP = numeric(),
+                                 MkG = numeric(),
+                                 MkP = numeric(),
+                                 MkS = numeric(),
                                  method2 = character(),
                                  model2 = character(),
-                                 DG2 = numeric(),
-                                 DP2 = numeric(),
-                                 G2 = numeric(),
-                                 P2 = numeric(),
-                                 S2 = numeric())
+                                 scmDG = numeric(),
+                                 scmDP = numeric(),
+                                 scmG = numeric(),
+                                 scmP = numeric(),
+                                 scmS = numeric())
+phylo <- "Kuderna et al"
 
 ### loop through all of the datasets
-for (i in 1:length(d)){
-i <- 1
-for (i in 1:1) {
+for (i in 9:10){
   # use more colors and state_names for the Müller & Thalmann 5 state datasets
   if (i == 9 | i == 10) {
     colors <- c("skyblue", "red", "blue", "green", "orange")
@@ -378,50 +379,55 @@ for (i in 1:1) {
   character_data <- as.factor(character_data) # convert states to a factor (required for discrete traits in phytools)
   tree <- t$phy
 
-  #### Run ML Ancestral State Reconstruction ----
-  # ace_results <- ace(character_data, tree, type = "discrete", method = "ML", model = "ER") # equal rates model
-  # default = marginal = FALSE, returns empirical Bayesian posterior probabilities
-  # or...
-  fit <- fitMk(tree, character_data, model = "ER", pi = "fitzjohn")
-  asr <- ancr(fit, tips = TRUE)
-  asr_probs <- asr$ace
-  asr_node_pies <- asr_probs[(length(tree$tip.label) + 1):(length(tree$tip.label) + tree$Nnode), ]
-  asr_tip_pies <- asr_probs[1:length(tree$tip.label), ]
+  #### Run Mk Ancestral State Reconstruction ----
+  # try ER, ARD, and SYM models
+  fitER <- fitMk(tree, character_data, model = "ER", pi = "fitzjohn")
+  # equal rates model, fitzjohn root prior
+  fitARD <- fitMk(tree, character_data, model = "ARD", pi = "fitzjohn")
+  # all rates different model, fitzjohn root prior
+  fitSYM <- fitMk(tree, character_data, model = "SYM", pi = "fitzjohn")
+  # symmetric rates, fitzjohn root prior
+  # plot(fitER) # plots transition rates
+  # plot(fitARD) # plots transition rates
+  # plot(fitSYM) # plots transition rates
+  aov <- anova(fitER, fitARD, fitSYM) # compare models
+  bestMk <- rownames(aov[which.min(aov$AIC),])
+  Mk <- ancr(aov, type = "marginal", weighted = FALSE, tips = TRUE)
+  # with weighted = false, use the best supported model for asr
+  Mk_probs <- Mk$ace
+  Mk_node_pies <- Mk_probs[(length(tree$tip.label) + 1):(length(tree$tip.label) + tree$Nnode), ]
+  Mk_tip_pies <- Mk_probs[1:length(tree$tip.label), ]
 
   #### Run SCM Ancestral State Reconstruction ----
-  n_simulations <- 100  # Number of stochastic maps to generate
-  scm <- make.simmap(tree, character_data, model = "ER", nsim = n_simulations, pi = "fitzjohn") # equal rates model, fitzjohn root priot
+  nsim <- 100  # Number of stochastic maps to generate
+  # scmER <- make.simmap(tree, character_data, model = "ER", nsim = nsim, pi = "fitzjohn")
+  # scmARD <- make.simmap(tree, character_data, model = "ARD", nsim = nsim, pi = "fitzjohn")
+  scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
 
- #### summarize the stochastic maps
-  summary_scm <- summary(scm)
+  #### summarize the stochastic maps
+  summary_scm <- summary(scmSYM)
 
-  #### extract posterior probabilities and pies for internal nodes
+  #### extract posterior probabilities and pies for internal nodes and tips
   scm_probs <- summary_scm$ace
   scm_node_pies <- scm_probs[1:tree$Nnode, ]
-
-  #### tip states
   scm_tip_pies <- summary_scm$tips
 
-  #### Plotting ML Results----
+  #### Plotting Mk Results----
   um_tree <- force.ultrametric(tree, method = "extend")
   um_tree$root.edge <- 2
 
   plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
 
   #### add pie charts for ancestral states at internal nodes
-  # node_pies <- as.matrix(ace_results$lik.anc)
-  node_pies <- as.matrix(asr_node_pies)
   nodelabels(
-    pie = node_pies,
+    pie = Mk_node_pies,
     piecol = colors,
     cex = 0.2
   )
 
   #### add pie charts for tips
-  # tip_pies <- as.factor(character_data)
-  # tip_pies <- to.matrix(tip_pies, levels(tip_pies))
   tiplabels(
-    pie = asr_tip_pies,
+    pie = Mk_tip_pies,
     piecol = colors,
     cex = 0.2
   )
@@ -431,18 +437,77 @@ for (i in 1:1) {
          fill = colors,
          title = "Character States")
 
+  #### Plotting SCM Results----
+  # um_tree <- force.ultrametric(tree, method = "extend")
+  # um_tree$root.edge <- 2
+  #
+  # plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
+  #
+  # #### add pie charts for ancestral states at internal nodes
+  # nodelabels(
+  #   pie = scm_node_pies,
+  #   piecol = colors,
+  #   cex = 0.2
+  # )
+  #
+  # #### add pie charts for tips
+  # tiplabels(
+  #   pie = scm_tip_pies,
+  #   piecol = colors,
+  #   cex = 0.2
+  # )
+  #
+  # legend("topleft",
+  #        legend = state_names,
+  #        fill = colors,
+  #        title = "Character States")
+
   #### get node number for primate MRCA
   mrca <- MRCA(
     t$phy,
     t$dat |> filter(Order == "Primates") |> pull(tip.label))
 
-  root_pie <- subset(node_pies, rownames(node_pies) %in% mrca)
-  sim_root_pie <- subset(sim_node_pies, rownames(sim_node_pies) %in% mrca)
+  Mk_root_pie <- subset(Mk_node_pies, rownames(Mk_node_pies) %in% mrca)
+  scm_root_pie <- subset(scm_node_pies, rownames(scm_node_pies) %in% mrca)
 
   if (i == 9 | i == 10){
-    r <- tibble(dataset = s[[i]], phylo = "Kuderna et al", ntaxa = nrow(t$dat), ntips = length(t$phy$tip.label), method1 = "ML", model1 = "ER", DG1 = root_pie[,"D-G"], DP1 = root_pie[,"D-P"], G1 = root_pie[,"G"], P1 = root_pie[,"P"], S1 = root_pie[,"S"], sum1 = DG1 + DP1 + G1 + P1 + S1, method2 = "SCM", model2 = "ER", DG2 = sim_root_pie[,"D-G"], DP2 = sim_root_pie[,"D-P"], G2 = sim_root_pie[, "G"], P2 = sim_root_pie[ ,"P"], S2 = sim_root_pie[ ,"S"], sum2 = DG2 + DP2 + G2 + P2 + S2)
+    r <- tibble(dataset = s[[i]],
+                phylo = phylo,
+                ntaxa = nrow(t$dat),
+                ntips = length(t$phy$tip.label),
+                method1 = "Mk",
+                model1 = bestMk,
+                MkDG = Mk_root_pie[,"D-G"],
+                MkDP = Mk_root_pie[,"D-P"],
+                MkG = Mk_root_pie[,"G"],
+                MkP = Mk_root_pie[,"P"],
+                MkS = Mk_root_pie[,"S"],
+                method2 = "SCM",
+                model2 = "scmSYM",
+                scmDG = scm_root_pie[,"D-G"],
+                scmDP = scm_root_pie[,"D-P"],
+                scmG = scm_root_pie[, "G"],
+                scmP = scm_root_pie[ ,"P"],
+                scmS = scm_root_pie[ ,"S"])
   } else {
-    r <- tibble(dataset = s[[i]], phylo = "Kuderna et al", ntaxa = nrow(t$dat), ntips = length(t$phy$tip.label), method1 = "ML", model1 = "ER", DG1 = 0, DP1 = 0, G1 = root_pie[,"G"], P1 = root_pie[,"P"], S1 = root_pie[,"S"], sum1 = DG1 + DP1 + G1 + P1 + S1, method2 = "SCM", model2 = "ER", DG2 = 0, DP2 = 0, G2 = sim_root_pie[, "G"], P2 = sim_root_pie[ ,"P"], S2 = sim_root_pie[ ,"S"], sum2 = DG2 + DP2 + G2 + P2 + S2)
+    r <- tibble(dataset = s[[i]],
+                phylo = phylo,
+                ntaxa = nrow(t$dat),
+                ntips = length(t$phy$tip.label),
+                method1 = "Mk",
+                model1 = bestMk,
+                MkDG = 0,
+                MkDP = 0,
+                MkG = Mk_root_pie[,"G"],
+                MkP = Mk_root_pie[,"P"],
+                MkS = Mk_root_pie[,"S"],
+                method2 = "SCM",
+                model2 = "scmSYM",
+                scmDG = 0,
+                scmDP = 0,
+                scmG = scm_root_pie[, "G"],
+                scmP = scm_root_pie[ ,"P"],
+                scmS = scm_root_pie[ ,"S"])
   }
 
   #### store results
