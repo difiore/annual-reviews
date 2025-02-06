@@ -204,7 +204,7 @@ d[[2]] <- combined_data |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[2]] <- "Olivier et al 3 state additional"
+s[[2]] <- "Olivier et al 3 state + outgroup"
 
 ## Kappeler & Pozzi 3 state
 d[[3]] <- combined_data |>
@@ -224,7 +224,7 @@ d[[4]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[4]] <- "Kappeler & Pozzi 3 state additional"
+s[[4]] <- "Kappeler & Pozzi 3 state + outgroup"
 
 ## Lukas & Clutton-Brock 3 state
 d[[5]] <- combined_data |>
@@ -243,7 +243,7 @@ d[[6]] <- combined_data |>
   select(all_of(c("Order", "Superfamily", "Species", "character_data"))) |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1])
-s[[6]] <- "Lukas & Clutton-Brock 3 state additional"
+s[[6]] <- "Lukas & Clutton-Brock 3 state + outgroup"
 
 ## Müller & Thalman 3 state
 d[[7]] <- combined_data |>
@@ -263,7 +263,7 @@ d[[8]] <- combined_data |>
   rowwise() |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "P, G", "P", `character_data`))
-s[[8]] <- "Müller & Thalman 3 state additional"
+s[[8]] <- "Müller & Thalman 3 state + outgroup"
 
 ## Müller & Thalman 5 state
 d[[9]] <- combined_data |>
@@ -285,7 +285,7 @@ d[[10]] <- combined_data |>
   mutate(`Genus` = str_split(`Species`, "_")[[1]][1]) |>
   mutate(`character_data` = if_else(`character_data` == "D-P, D-G", "D-P", `character_data`)) |>
   mutate(`character_data` = if_else(`Species` == "Pongo_pygmaeus", "D-G", `character_data`))
-s[[10]] <- "Müller & Thalman 5 state additional"
+s[[10]] <- "Müller & Thalman 5 state + outgroup"
 
 rm(list = setdiff(ls(), c("d", "s")))
 
@@ -513,6 +513,8 @@ for (i in 1:length(d)){
   #### store results
   Kuderna_et_al_tree_res <- bind_rows(Kuderna_et_al_tree_res, r)
 }
+
+write_csv(Kuderna_et_al_tree_res, "Kuderna_et_al_tree_res.csv")
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree")))
 
@@ -744,15 +746,14 @@ for (i in 1:length(d)){
   Olivier_et_al_tree_res <- bind_rows(Olivier_et_al_tree_res, r)
 }
 
+write_csv(Olivier_et_al_tree_res, "Olivier_et_al_tree_res")
+
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree")))
 
 # Analyses of effects of taxon sampling ----
 ## here we can filter for taxa of interest or take random samples
 
 root_pies <- tibble(dataset = numeric(), rep = numeric(), primateMRCA = numeric(), model = character(), DG = numeric(), DP = numeric(), G = numeric(), P = numeric(), S = numeric())
-
-colors <- c("skyblue", "red", "blue", "green", "orange")
-state_names <- c("D-G", "D-P", "G", "P", "S")
 
 ## generate 100 samples with 1 species per genus for each dataset and do ASR
 for (i in 1:length(d)){
@@ -853,7 +854,7 @@ summary <- summary |>
   rowwise() |>
   mutate(name = str_split(name, "mean")[[1]][2])
 
-summary$display_order <- rep(c("Base", "Base + Additional"), 50)
+summary$display_order <- rep(c("Base", "Base + Outgroup"), 50)
 summary$dataset <- rep(c("Olivier et al 3 state", "Olivier et al 3 state", "Kappeler & Pozzi 3 state", "Kappeler & Pozzi 3 state", "Lukas & Clutton-Brock 3 state", "Lukas & Clutton-Brock 3 state", "Müller & Thalman 3 state", "Müller & Thalman 3 state", "Müller & Thalman 5 state", "Müller & Thalman 5 state"), 10)
 
 summary$dataset <- factor(summary$dataset, levels = c("Olivier et al 3 state", "Kappeler & Pozzi 3 state", "Lukas & Clutton-Brock 3 state", "Müller & Thalman 3 state", "Müller & Thalman 5 state"))
@@ -866,6 +867,11 @@ summary <- summary |>
 write_csv(summary, "summary.csv")
 
 # Lines below generate plots of ASR at Primate Root for 10 different datasets across two different phylogenies using Mk model with SYM rates where we sample randomly 1 species from each genus and average across 100 runs
+
+summary <- read_csv("summary.csv", col_name = TRUE)
+
+colors <- c("skyblue", "red", "blue", "green", "orange")
+state_names <- c("D-G", "D-P", "G", "P", "S")
 
 p <- ggplot(summary, aes(x="", y=value, fill=name)) +
   geom_bar(stat="identity", width=1) +
@@ -881,13 +887,22 @@ p
 
 rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree", "summary", "p")))
 
-
 # Lines below generate plots of ASR at Primate Root for 10 different datasets across two different phylogenies and using 2 different ASR methods (Mk and SCM, both with fitzjohn prior and SYM rates)
 
 Kuderna_et_al_summary <- pivot_longer(Kuderna_et_al_tree_res, cols = c("MkDG", "MkDP", "MkG", "MkP", "MkS","scmDG", "scmDP", "scmG", "scmP", "scmS")) |>
   select(dataset, phylo, name, value)
 
-Kuderna_et_al_summary$dataset <- factor(Kuderna_et_al_summary$dataset, levels = c("Olivier et al 3 state", "Olivier et al 3 state additional", "Kappeler & Pozzi 3 state", "Kappeler & Pozzi 3 state additional" , "Lukas & Clutton-Brock 3 state", "Lukas & Clutton-Brock 3 state additional", "Müller & Thalman 3 state", "Müller & Thalman 3 state additional", "Müller & Thalman 5 state", "Müller & Thalman 5 state additional"))
+Kuderna_et_al_summary$dataset <- factor(Kuderna_et_al_summary$dataset,
+                                        levels = c("Olivier et al 3 state",
+                                                   "Olivier et al 3 state + outgroup",
+                                                   "Kappeler & Pozzi 3 state",
+                                                   "Kappeler & Pozzi 3 state + outgroup",
+                                                   "Lukas & Clutton-Brock 3 state",
+                                                   "Lukas & Clutton-Brock 3 state + outgroup",
+                                                   "Müller & Thalman 3 state",
+                                                   "Müller & Thalman 3 state + outgroup",
+                                                   "Müller & Thalman 5 state",
+                                                   "Müller & Thalman 5 state + outgroup"))
 
 Kuderna_et_al_summary <- Kuderna_et_al_summary |>
   filter(value != 0) |>
@@ -906,7 +921,17 @@ Kuderna_et_al_summary <- Kuderna_et_al_summary |>
 Olivier_et_al_summary <- pivot_longer(Olivier_et_al_tree_res, cols = c("MkDG", "MkDP", "MkG", "MkP", "MkS","scmDG", "scmDP", "scmG", "scmP", "scmS")) |>
   select(dataset, phylo, name, value)
 
-Olivier_et_al_summary$dataset <- factor(Olivier_et_al_summary$dataset, levels = c("Olivier et al 3 state", "Olivier et al 3 state additional", "Kappeler & Pozzi 3 state", "Kappeler & Pozzi 3 state additional" , "Lukas & Clutton-Brock 3 state", "Lukas & Clutton-Brock 3 state additional", "Müller & Thalman 3 state", "Müller & Thalman 3 state additional", "Müller & Thalman 5 state", "Müller & Thalman 5 state additional"))
+Olivier_et_al_summary$dataset <- factor(Olivier_et_al_summary$dataset,
+                                        levels = c("Olivier et al 3 state",
+                                                   "Olivier et al 3 state + outgroup",
+                                                   "Kappeler & Pozzi 3 state",
+                                                   "Kappeler & Pozzi 3 state + outgroup",
+                                                   "Lukas & Clutton-Brock 3 state",
+                                                   "Lukas & Clutton-Brock 3 state + outgroup",
+                                                   "Müller & Thalman 3 state",
+                                                   "Müller & Thalman 3 state + outgroup",
+                                                   "Müller & Thalman 5 state",
+                                                   "Müller & Thalman 5 state + outgroup"))
 
 Olivier_et_al_summary <- Olivier_et_al_summary |>
   filter(value != 0) |>
@@ -948,3 +973,113 @@ p <- ggplot(Olivier_et_al_summary, aes(x="", y=value, fill=name)) +
   scale_colour_manual(values = c("black", "black", "white","black", "black"))
 
 p
+
+
+# Olivier et al data on Olivier et al tree ----
+## start with multiple trees to capture uncertainty
+tree_file <- "Olivier_et_al_phylogeny.nex"
+trees = read.nexus(tree_file)
+base_data <- read_csv("base_data.csv", col_names = TRUE)
+
+## create consensus phylogeny
+tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
+is.rooted.phylo(tree)
+outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
+
+tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
+is.rooted.phylo(tree)
+is.binary(tree)
+tree <- multi2di(tree) # force tree to be binary
+is.binary(tree)
+tree$node.label <- NULL
+Olivier_et_al_tree <- tree # hold the original tree
+
+# create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
+tree <- Olivier_et_al_tree
+t <- as.treedata.table(tree = tree, data = as.data.frame(d[[1]]), name_column = "Species")
+phy <- t$phy # get the phylogeny
+is.rooted.phylo(phy) # check if it's rooted
+is.binary(phy) # check if it's binary
+outgroup <- t$dat |> # set outgroup to be non primates if they are present in the dataset
+  filter(`Order` %in% c("Lagomorpha", "Scandentia", "Rodentia", "Dermoptera")) |>
+  pull(`tip.label`)
+if (length(outgroup) == 0) { # otherwise set outgroups to be strepsirrhines
+  outgroup <- t$dat |>
+    filter(`Superfamily` %in% c("Lemuroidea", "Lorisoidea")) |>
+    pull(`tip.label`)
+}
+
+t$phy <- root(t$phy, outgroup = outgroup, resolve.root = TRUE) # reroot the tree
+phy <- t$phy
+is.rooted.phylo(phy) # check if it's rooted
+is.binary(phy) # check if it's binary
+plot(phy, type = "fan" , cex = 0.4)
+nodelabels(cex = 0.4)
+phy <- rotateNodes(phy, 219)
+phy <- rotateNodes(phy, 220)
+phy <- rotateNodes(phy, 310)
+phy <- rotateNodes(phy, 325)
+t$phy <- phy
+
+### Run ASR -----
+#### Set Up Dataset ----
+character_data <- t$dat$`character_data`
+names(character_data) <- t$dat$tip.label
+character_data <- as.factor(character_data) # convert states to a factor (required for discrete traits in phytools)
+tree <- t$phy
+tree$node.label <- 1:Nnode(tree) + length(tree$tip.label)
+
+#### Run Mk Ancestral State Reconstruction ----
+# try ER, ARD, and SYM models
+fitER <- fitMk(tree, character_data, model = "ER", pi = "fitzjohn")
+# equal rates model, fitzjohn root prior
+fitARD <- fitMk(tree, character_data, model = "ARD", pi = "fitzjohn")
+# all rates different model, fitzjohn root prior
+fitSYM <- fitMk(tree, character_data, model = "SYM", pi = "fitzjohn")
+aov <- anova(fitER, fitARD, fitSYM) # compare models
+bestMk <- rownames(aov[which.min(aov$AIC),])
+Mk <- ancr(aov, type = "marginal", weighted = FALSE, tips = TRUE)
+# with weighted = false, use the best supported model for asr
+Mk_probs <- Mk$ace
+Mk_node_pies <- Mk_probs[(length(tree$tip.label) + 1):(length(tree$tip.label) + tree$Nnode), ]
+Mk_tip_pies <- Mk_probs[1:length(tree$tip.label), ]
+nsim <- 100
+scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
+
+#### summarize the stochastic maps
+summary_scm <- summary(scmSYM)
+
+#### extract posterior probabilities and pies for internal nodes and tips
+scm_probs <- summary_scm$ace
+scm_node_pies <- scm_probs[1:tree$Nnode, ]
+scm_tip_pies <- summary_scm$tips
+
+um_tree <- force.ultrametric(tree, method = "extend")
+um_tree$root.edge <- 2
+
+colors <- c("blue", "green", "orange")
+state_names <- c("G", "P", "S")
+plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 2,
+           no.margin = TRUE, root.edge = TRUE, open.angle = 1)
+#### add pie charts for ancestral states at internal nodes
+nodelabels(
+  pie = Mk_node_pies,
+  piecol = colors,
+  cex = 0.2
+)
+
+#### add pie charts for tips
+tiplabels(
+  pie = Mk_tip_pies,
+  piecol = colors,
+  cex = 0.15
+)
+
+legend("topleft",
+       legend = state_names,
+       fill = colors,
+       title = "Character States")
+
+# save figure this as a high resolution PNG file 1200 x 900px
+
+rm(list = ls())
