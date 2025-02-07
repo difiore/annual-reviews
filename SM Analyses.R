@@ -547,7 +547,7 @@ rm(list=setdiff(ls(), c("d", "s",
 # ASR using Olivier et al phylgeny ----
 ## Get full tree and plot ----
 ## start with their original set of multiple trees to capture uncertainty
-tree_file <- "Olivier_et_al_phylogeny.nex"
+tree_file <- "vert phylo.nex"
 trees = read.nexus(tree_file)
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
@@ -939,9 +939,7 @@ p <- ggplot(res, aes(x="", y=value, fill=name)) +
   geom_label_repel(aes(y = ypos, label = name, , color = factor(name)), size = 4.5, nudge_x = 1) +
   scale_colour_manual(values = c("black", "black", "grey","black", "black"))
 
-p
-
-# save figure this as a high resolution PNG file 1200 x 900px
+p # save figure this as a high resolution PNG file 1200 x 900px
 
 write_csv(res, "res.csv")
 
