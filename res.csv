@@ -1,48 +1,95 @@
 dataset,phylo,name,value,outgroup,prop,ypos
-Kappeler & Pozzi 3 state,Kuderna et al + no outgroup,S,0.2981444780170403,no outgroup,0.2981444780170403,0.14907223900852015
-Kappeler & Pozzi 3 state,Kuderna et al + no outgroup,P,0.672887529201004,no outgroup,0.672887529201004,0.6345882426175422
-Kappeler & Pozzi 3 state,Kuderna et al + no outgroup,G,0.02896799278195563,no outgroup,0.02896799278195563,0.985516003609022
-Lukas & Clutton-Brock 3 state,Kuderna et al + no outgroup,S,0.960870876550679,no outgroup,0.960870876550679,0.4804354382753395
-Lukas & Clutton-Brock 3 state,Kuderna et al + no outgroup,P,0.03782897136184048,no outgroup,0.03782897136184048,0.9797853622315993
-Lukas & Clutton-Brock 3 state,Kuderna et al + no outgroup,G,0.00130015208748042,no outgroup,0.00130015208748042,0.9993499239562598
-Müller & Thalmann 3 state,Kuderna et al + no outgroup,S,7.65941716146513e-10,no outgroup,7.65941716146513e-10,3.829708580732565e-10
-Müller & Thalmann 3 state,Kuderna et al + no outgroup,P,0.00687542326148798,no outgroup,0.00687542326148798,0.0034377123966857063
-Müller & Thalmann 3 state,Kuderna et al + no outgroup,G,0.9931245759725704,no outgroup,0.9931245759725704,0.503437712013715
-Müller & Thalmann 5 state,Kuderna et al + no outgroup,P,0.7945478908168967,no outgroup,0.7945478908168967,0.39727394540844835
-Müller & Thalmann 5 state,Kuderna et al + no outgroup,G,0.06100289394306845,no outgroup,0.06100289394306845,0.8250493377884309
-Müller & Thalmann 5 state,Kuderna et al + no outgroup,D-P,2.0165051250059968e-4,no outgroup,2.0165051250059968e-4,0.8556516100162155
-Müller & Thalmann 5 state,Kuderna et al + no outgroup,D-G,0.14424756472753433,no outgroup,0.14424756472753433,0.9278762176362331
-Olivier et al 3 state,Kuderna et al + no outgroup,S,0.23593670700268105,no outgroup,0.23593670700268105,0.11796835350134052
-Olivier et al 3 state,Kuderna et al + no outgroup,P,0.7295528713645641,no outgroup,0.7295528713645641,0.6007131426849632
-Olivier et al 3 state,Kuderna et al + no outgroup,G,0.0345104216327549,no outgroup,0.0345104216327549,0.9827447891836227
-Kappeler & Pozzi 3 state,Kuderna et al + outgroup,S,0.03910086982317291,outgroup,0.03910086982317291,0.019550434911586454
-Kappeler & Pozzi 3 state,Kuderna et al + outgroup,P,0.4345718002558744,outgroup,0.4345718002558744,0.2563867699511101
-Kappeler & Pozzi 3 state,Kuderna et al + outgroup,G,0.5263273299209527,outgroup,0.5263273299209527,0.7368363350395237
-Lukas & Clutton-Brock 3 state,Kuderna et al + outgroup,P,0.8080492159507816,outgroup,0.8080492159507816,0.4040246079753908
-Lukas & Clutton-Brock 3 state,Kuderna et al + outgroup,G,0.1919507840492184,outgroup,0.1919507840492184,0.9040246079753909
-Müller & Thalmann 3 state,Kuderna et al + outgroup,S,6.997984878410975e-6,outgroup,6.997984878410975e-6,3.4989924392054873e-6
-Müller & Thalmann 3 state,Kuderna et al + outgroup,P,0.03690592648899233,outgroup,0.03690592648899233,0.018459961229374575
-Müller & Thalmann 3 state,Kuderna et al + outgroup,G,0.9630870755261292,outgroup,0.9630870755261292,0.5184564622369353
-Müller & Thalmann 5 state,Kuderna et al + outgroup,P,0.3288650607801003,outgroup,0.3288650607801003,0.16443253039005015
-Müller & Thalmann 5 state,Kuderna et al + outgroup,G,0.6576174673841045,outgroup,0.6576174673841045,0.6576737944721527
-Müller & Thalmann 5 state,Kuderna et al + outgroup,D-P,5.033008307127814e-4,outgroup,5.033008307127814e-4,0.9867341785795614
-Müller & Thalmann 5 state,Kuderna et al + outgroup,D-G,0.01301417100508248,outgroup,0.01301417100508248,0.993492914497459
-Olivier et al 3 state,Kuderna et al + outgroup,S,0.04027676480041534,outgroup,0.04027676480041534,0.02013838240020767
-Olivier et al 3 state,Kuderna et al + outgroup,P,0.4975911313459857,outgroup,0.4975911313459857,0.2890723304734082
-Olivier et al 3 state,Kuderna et al + outgroup,G,0.4621321038535991,outgroup,0.4621321038535991,0.7689339480732007
-Kappeler & Pozzi 3 state,Olivier et al + no outgroup,S,0.7074998223743354,no outgroup,0.7074998223743354,0.3537499111871677
-Kappeler & Pozzi 3 state,Olivier et al + no outgroup,P,0.25719281245142567,no outgroup,0.25719281245142567,0.8360962286000482
-Kappeler & Pozzi 3 state,Olivier et al + no outgroup,G,0.03530736517423892,no outgroup,0.03530736517423892,0.9823463174128806
-Lukas & Clutton-Brock 3 state,Olivier et al + no outgroup,S,0.9530092696532484,no outgroup,0.9530092696532484,0.4765046348266242
-Lukas & Clutton-Brock 3 state,Olivier et al + no outgroup,P,0.04103847468481615,no outgroup,0.04103847468481615,0.9735285069956564
-Lukas & Clutton-Brock 3 state,Olivier et al + no outgroup,G,0.00595225566193562,no outgroup,0.00595225566193562,0.9970238721690324
-Müller & Thalmann 3 state,Olivier et al + no outgroup,S,3.4889163660377737e-7,no outgroup,3.4889163660377737e-7,1.7444581830188868e-7
-Müller & Thalmann 3 state,Olivier et al + no outgroup,P,0.369033146366466,no outgroup,0.369033146366466,0.18451692207486958
-Müller & Thalmann 3 state,Olivier et al + no outgroup,G,0.6309665047418974,no outgroup,0.6309665047418974,0.6845167476290512
-Müller & Thalmann 5 state,Olivier et al + no outgroup,P,0.33972955084842704,no outgroup,0.33972955084842704,0.16986477542421352
-Müller & Thalmann 5 state,Olivier et al + no outgroup,G,0.08651077121652723,no outgroup,0.08651077121652723,0.38298493645669063
-Müller & Thalmann 5 state,Olivier et al + no outgroup,D-P,0.2694578874967401,no outgroup,0.2694578874967401,0.5609692658133243
-Müller & Thalmann 5 state,Olivier et al + no outgroup,D-G,0.30430179043830574,no outgroup,0.30430179043830574,0.8478491047808472
-Olivier et al 3 state,Olivier et al + no outgroup,S,0.6117747811878835,no outgroup,0.6117747811878835,0.30588739059394177
-Olivier et al 3 state,Olivier et al + no outgroup,P,0.3281930733332354,no outgroup,0.3281930733332354,0.7758713178545013
-Olivier et al 3 state,Olivier et al + no outgroup,G,0.06003214547888116,no outgroup,0.06003214547888116,0.9699839272605596
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.29814447787885484,no outgroup,0.29814447787885484,0.14907223893942742
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.6728875293231816,no outgroup,0.6728875293231816,0.6345882425404457
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.02896799279796355,no outgroup,0.02896799279796355,0.9855160036010182
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.9608708765819058,no outgroup,0.9608708765819058,0.4804354382909529
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.03782897133244388,no outgroup,0.03782897133244388,0.9797853622481278
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.0013001520856503,no outgroup,0.0013001520856503,0.9993499239571748
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",S,7.659417172995306e-10,no outgroup,7.659417172995306e-10,3.829708586497653e-10
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.00687542327890978,no outgroup,0.00687542327890978,0.0034377124053966072
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.9931245759551484,no outgroup,0.9931245759551484,0.5034377120224257
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",P,0.7945478908591085,no outgroup,0.7945478908591085,0.39727394542955424
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",G,0.06100289383849901,no outgroup,0.06100289383849901,0.825049337778358
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",D-P,2.016505116100093e-4,no outgroup,2.016505116100093e-4,0.8556516099534125
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",D-G,0.14424756479078252,no outgroup,0.14424756479078252,0.9278762176046087
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.23593670711472156,no outgroup,0.23593670711472156,0.11796835355736078
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.7295528712318741,no outgroup,0.7295528712318741,0.6007131427306587
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.03451042165340441,no outgroup,0.03451042165340441,0.9827447891732978
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",S,0.03910086982099658,outgroup,0.03910086982099658,0.01955043491049829
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.4345718003282667,outgroup,0.4345718003282667,0.25638676998512994
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.5263273298507367,outgroup,0.5263273298507367,0.7368363350746316
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.8080492189010366,outgroup,0.8080492189010366,0.4040246094505183
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.19195078109896332,outgroup,0.19195078109896332,0.9040246094505183
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",S,6.997984876446724e-6,outgroup,6.997984876446724e-6,3.498992438223362e-6
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.03690592648244023,outgroup,0.03690592648244023,0.018459961226096562
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.9630870755326834,outgroup,0.9630870755326834,0.5184564622336583
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",P,0.3288650609768182,outgroup,0.3288650609768182,0.1644325304884091
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",G,0.6576174671871324,outgroup,0.6576174671871324,0.6576737945703844
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",D-P,5.033008312081129e-4,outgroup,5.033008312081129e-4,0.9867341785795547
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",D-G,0.01301417100484133,outgroup,0.01301417100484133,0.9934929144975794
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",S,0.04027676480722778,outgroup,0.04027676480722778,0.02013838240361389
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.49759113136546895,outgroup,0.49759113136546895,0.2890723304899622
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.4621321038273032,outgroup,0.4621321038273032,0.7689339480863483
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.7074998262473156,no outgroup,0.7074998262473156,0.3537499131236578
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.2571928034013245,no outgroup,0.2571928034013245,0.8360962279479778
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.03530737035135995,no outgroup,0.03530737035135995,0.98234631482432
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.9530092699032384,no outgroup,0.9530092699032384,0.4765046349516192
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.0410384744741194,no outgroup,0.0410384744741194,0.9735285071402981
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.00595225562264208,no outgroup,0.00595225562264208,0.9970238721886788
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",S,3.4889163322270025e-7,no outgroup,3.4889163322270025e-7,1.7444581661135013e-7
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.3690331464242983,no outgroup,0.3690331464242983,0.18451692210378234
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.6309665046840685,no outgroup,0.6309665046840685,0.6845167476579658
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",P,0.33972955194762156,no outgroup,0.33972955194762156,0.16986477597381078
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",G,0.08651077102192387,no outgroup,0.08651077102192387,0.3829849374585835
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",D-P,0.2694578870990133,no outgroup,0.2694578870990133,0.560969266519052
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",D-G,0.30430178993144125,no outgroup,0.30430178993144125,0.8478491050342793
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.611774781304982,no outgroup,0.611774781304982,0.305887390652491
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.328193073426084,no outgroup,0.328193073426084,0.7758713180180239
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.06003214526893397,no outgroup,0.06003214526893397,0.9699839273655331

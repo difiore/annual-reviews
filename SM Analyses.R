@@ -11,7 +11,7 @@ library(here)
 rm(list = ls()) # clear workspace
 
 # Plot SM Figure 2 - Kuderna et al phylogeny ----
-tree_file <- "Kuderna_et_al_phylogeny.tree"
+tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
 tree <- read.tree(tree_file)
 outgroup <- c("Tupaia_belangeri", "Galeopterus_variegatus", "Mus_musculus", "Oryctolagus_cuniculus")
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
@@ -288,18 +288,19 @@ d[[10]] <- combined_data |>
 s[[10]] <- "Müller & Thalmann 5 state + outgroup"
 
 write_csv(d[[1]], "Olivier_et_al_data.csv")
+write_csv(d[[2]], "Olivier_et_al_data_plus_outgroup.csv")
 rm(list = setdiff(ls(), c("d", "s")))
 
 # ASR using Kuderna et al phylogeny ----
 ## Get full tree and plot ----
-tree_file <- "Kuderna_et_al_phylogeny.tree"
+tree_file <- "Kuderna data_s4_fossil_calibrated_time_tree.nex.tree"
 tree <- read.tree(tree_file)
 
 ## replace Cephalopachus and Carlito with Tarsius to match species in Kuderna et al
 tree$tip.label <- gsub("Cephalopachus", "Tarsius", tree$tip.label)
 tree$tip.label <- gsub("Carlito", "Tarsius", tree$tip.label)
 
-## create a vector with outgroup taxa
+## define outgroup for the tree, reroot, check if binary, and resolve if not
 outgroup <- c("Mus_musculus", "Oryctolagus_cuniculus", "Tupaia_belangeri", "Galeopterus_variegatus")
 is.rooted.phylo(tree)
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
@@ -307,7 +308,15 @@ is.rooted.phylo(tree)
 is.binary(tree)
 tree <- multi2di(tree) # force tree to be binary
 is.binary(tree)
-Kuderna_et_al_tree <- tree # hold the original tree
+tree$node.label <- NULL
+Kuderna_et_al_tree <- tree # hold this tree!
+
+## store tree
+write.tree(Kuderna_et_al_tree, "Kuderna_et_al_phylogeny.tree") # store for later
+
+## read back in
+tree_file <- "Kuderna_et_al_phylogeny.tree"
+tree <- read.tree(tree_file)
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
@@ -345,7 +354,6 @@ phylo <- "Kuderna et al"
 ### loop through all of the datasets
 for (i in seq(1, length(d))){
   # use more colors and state_names for the Müller & Thalmann 5 state datasets
-  i <- 2
   if (i == 9 | i == 10) {
     colors <- c("skyblue", "red", "blue", "green")
     state_names <- c("D-G", "D-P", "G", "P") # no solitary in this dataset!
@@ -378,7 +386,7 @@ for (i in seq(1, length(d))){
   #### Set Up Dataset ----
   character_data <- t$dat$`character_data`
   names(character_data) <- t$dat$tip.label
-  character_data <- as.factor(character_data) # convert states to a factor (required for discrete traits in phytools)
+  character_data <- as.factor(character_data) # convert states to a factor (required for discrete traits in {phytools})
   tree <- t$phy
 
   #### Run Mk Ancestral State Reconstruction ----
@@ -389,9 +397,9 @@ for (i in seq(1, length(d))){
   # all rates different model, fitzjohn root prior
   fitSYM <- fitMk(tree, character_data, model = "SYM", pi = "fitzjohn")
   # symmetric rates, fitzjohn root prior
-  # plot(fitER) # plots transition rates
-  # plot(fitARD) # plots transition rates
-  # plot(fitSYM) # plots transition rates
+  # plot(fitER) # uncomment to plot transition rates
+  # plot(fitARD) # uncomment to plot transition rates
+  # plot(fitSYM) # uncomment to plot transition rates
   aov <- anova(fitER, fitARD, fitSYM) # compare models
   bestMk <- rownames(aov[which.min(aov$AIC),])
   Mk <- ancr(aov, type = "marginal", weighted = FALSE, tips = TRUE)
@@ -405,6 +413,7 @@ for (i in seq(1, length(d))){
   # scmER <- make.simmap(tree, character_data, model = "ER", nsim = nsim, pi = "fitzjohn")
   # scmARD <- make.simmap(tree, character_data, model = "ARD", nsim = nsim, pi = "fitzjohn")
   scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
+  # SYM is best model so others commented out
 
   #### summarize the stochastic maps
   summary_scm <- summary(scmSYM)
@@ -419,7 +428,12 @@ for (i in seq(1, length(d))){
   um_tree <- force.ultrametric(tree, method = "extend")
   um_tree$root.edge <- 2
 
-  plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
+  plot.phylo(um_tree,
+             type = "fan",
+             cex = 0.5,
+             label.offset = 4,
+             no.margin = TRUE,
+             root.edge = TRUE)
 
   #### add pie charts for ancestral states at internal nodes
    nodelabels(
@@ -434,17 +448,25 @@ for (i in seq(1, length(d))){
     piecol = colors,
     cex = 0.2
   )
-
-  # legend("topleft",
-  #        legend = state_names,
-  #        fill = colors,
-  #        title = "Character States")
+  #### add legend
+  legend("topright",
+         inset = c(0.025),
+         legend = state_names,
+         cex = 0.75,
+         fill = colors,
+         title = "Character States")
 
   ##### SCM Results ----
+  # uncomment to plot SCM results, which are virtually identical to Mk results
   # um_tree <- force.ultrametric(tree, method = "extend")
   # um_tree$root.edge <- 2
   #
-  # plot.phylo(um_tree, type = "fan", cex = 0.5, label.offset = 4, main = "Phylogenetic Tree with Ancestral State Reconstruction", no.margin = TRUE, root.edge = TRUE)
+  # plot.phylo(um_tree,
+  #   type = "fan",
+  #   cex = 0.5,
+  #   label.offset = 4,
+  #   no.margin = TRUE,
+  #   root.edge = TRUE)
   #
   # #### add pie charts for ancestral states at internal nodes
   # nodelabels(
@@ -473,7 +495,7 @@ for (i in seq(1, length(d))){
   Mk_root_pie <- subset(Mk_node_pies, rownames(Mk_node_pies) %in% mrca)
   scm_root_pie <- subset(scm_node_pies, rownames(scm_node_pies) %in% mrca)
 
-  if (i == 9 | i == 10){
+  if (i == 9 | i == 10){ # for Müller & Thalmann dataset
     r <- tibble(dataset = s[[i]],
                 phylo = phylo,
                 ntaxa = nrow(t$dat),
@@ -492,7 +514,7 @@ for (i in seq(1, length(d))){
                 scmG = scm_root_pie[, "G"],
                 scmP = scm_root_pie[ ,"P"],
                 scmS = 0)
-  } else {
+  } else { # for remainder of datasets
     r <- tibble(dataset = s[[i]],
                 phylo = phylo,
                 ntaxa = nrow(t$dat),
@@ -519,27 +541,37 @@ for (i in seq(1, length(d))){
 
 write_csv(Kuderna_et_al_tree_res, "Kuderna_et_al_tree_res.csv")
 
-rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree")))
+rm(list=setdiff(ls(), c("d", "s",
+                        "Kuderna_et_al_tree", "Kuderna_et_al_tree_res")))
 
 # ASR using Olivier et al phylgeny ----
 ## Get full tree and plot ----
-## start with multiple trees to capture uncertainty
+## start with their original set of multiple trees to capture uncertainty
 tree_file <- "Olivier_et_al_phylogeny.nex"
 trees = read.nexus(tree_file)
 base_data <- read_csv("base_data.csv", col_names = TRUE)
 
-## create consensus phylogeny
+## create consensus phylogeny using their method for generating consensus tree
 tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
 is.rooted.phylo(tree)
-outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
 
+## define outgroup for their tree, reroot, check if binary, and resolve if not
+outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
+is.rooted.phylo(tree)
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
 is.rooted.phylo(tree)
 is.binary(tree)
 tree <- multi2di(tree) # force tree to be binary
 is.binary(tree)
 tree$node.label <- NULL
-Olivier_et_al_tree <- tree # hold the original tree
+Olivier_et_al_tree <- tree # hold this tree!
+
+## store tree
+write.tree(tree, "Olivier_et_al_phylogeny.tree") # store for later
+
+## read back in
+tree_file <- "Olivier_et_al_phylogeny.tree"
+tree <- read.tree(tree_file)
 
 um_tree <- force.ultrametric(tree, method = "extend")
 
@@ -576,7 +608,9 @@ phylo <- "Olivier et al"
 
 ### loop through all of the datasets
 for (i in seq(1, length(d), 2)){
-  # use more colors and state_names for the Müller & Thalmann 5 state datasets
+  # here, only loop through odd-numbered datasets...
+  # i.e., no outgroups because their analysis and phylogeny did not include outgroups
+  # use more colors and state_names for the Müller & Thalmann 5 state dataset
   if (i == 9){
     colors <- c("skyblue", "red", "blue", "green") # no solitary in this dataset!
     state_names <- c("D-G", "D-P", "G", "P")
@@ -593,11 +627,12 @@ for (i in seq(1, length(d), 2)){
   is.binary(phy) # check if it's binary
   outgroup <- t$dat |> # set outgroup to be non primates if they are present in the dataset
     filter(`Order` %in% c("Lagomorpha", "Scandentia", "Rodentia", "Dermoptera")) |>
-    pull(`tip.label`)
+    pull(`tip.label`) # this is unnecessary, really, because there should be no outgroups!
   if (length(outgroup) == 0) { # otherwise set outgroups to be strepsirrhines
     outgroup <- t$dat |>
       filter(`Superfamily` %in% c("Lemuroidea", "Lorisoidea")) |>
       pull(`tip.label`)
+    print("check")
   }
 
   t$phy <- root(t$phy, outgroup = outgroup, resolve.root = TRUE) # reroot the tree
@@ -621,9 +656,9 @@ for (i in seq(1, length(d), 2)){
   # all rates different model, fitzjohn root prior
   fitSYM <- fitMk(tree, character_data, model = "SYM", pi = "fitzjohn")
   # symmetric rates, fitzjohn root prior
-  # plot(fitER) # plots transition rates
-  # plot(fitARD) # plots transition rates
-  # plot(fitSYM) # plots transition rates
+  # plot(fitER) # uncomment to plot transition rates
+  # plot(fitARD) # uncomment to plot transition rates
+  # plot(fitSYM) # uncomment to plot transition rates
   aov <- anova(fitER, fitARD, fitSYM) # compare models
   bestMk <- rownames(aov[which.min(aov$AIC),])
   Mk <- ancr(aov, type = "marginal", weighted = FALSE, tips = TRUE)
@@ -637,6 +672,7 @@ for (i in seq(1, length(d), 2)){
   # scmER <- make.simmap(tree, character_data, model = "ER", nsim = nsim, pi = "fitzjohn")
   # scmARD <- make.simmap(tree, character_data, model = "ARD", nsim = nsim, pi = "fitzjohn")
   scmSYM <- make.simmap(tree, character_data, model = "SYM", nsim = nsim, pi = "fitzjohn")
+  # SYM is best model so others commented out
 
   #### summarize the stochastic maps
   summary_scm <- summary(scmSYM)
@@ -648,6 +684,7 @@ for (i in seq(1, length(d), 2)){
 
   #### Plotting Results ----
   ##### Mk Results ----
+  # uncomment to plot Mk results
   # um_tree <- force.ultrametric(tree, method = "extend")
   # um_tree$root.edge <- 2
   #
@@ -673,6 +710,7 @@ for (i in seq(1, length(d), 2)){
   #        title = "Character States")
 
   ##### SCM Results----
+  # uncomment to plot SCM results, which are virtually identical to Mk results
   # um_tree <- force.ultrametric(tree, method = "extend")
   # um_tree$root.edge <- 2
   #
@@ -751,48 +789,32 @@ for (i in seq(1, length(d), 2)){
 
 write_csv(Olivier_et_al_tree_res, "Olivier_et_al_tree_res.csv")
 
-rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree")))
+rm(list=setdiff(ls(), c("d", "s",
+                        "Kuderna_et_al_tree", "Kuderna_et_al_tree_res",
+                        "Olivier_et_al_tree", "Olivier_et_al_tree_res")))
 
 # Plot SM Figure 3 - Olivier et al data on Olivier et al tree ----
-## start with multiple trees to capture uncertainty
-tree_file <- "Olivier_et_al_phylogeny.nex"
-trees = read.nexus(tree_file)
+## load data
+tree <- read.tree("Olivier_et_al_phylogeny.tree")
 data <- read_csv("Olivier_et_al_data.csv", col_names = TRUE)
 
-## create consensus phylogeny
-tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
-is.rooted.phylo(tree)
-outgroup <- data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
-
-tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
-is.rooted.phylo(tree)
-is.binary(tree)
-tree <- multi2di(tree) # force tree to be binary
-is.binary(tree)
-tree$node.label <- NULL
-Olivier_et_al_tree <- tree # hold the original tree
-
-# create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
-tree <- Olivier_et_al_tree
+## create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
 t <- as.treedata.table(tree = tree, data = as.data.frame(data), name_column = "Species")
 phy <- t$phy # get the phylogeny
 is.rooted.phylo(phy) # check if it's rooted
 is.binary(phy) # check if it's binary
-outgroup <- t$dat |> # set outgroup to be non primates if they are present in the dataset
-  filter(`Order` %in% c("Lagomorpha", "Scandentia", "Rodentia", "Dermoptera")) |>
-  pull(`tip.label`)
-if (length(outgroup) == 0) { # otherwise set outgroups to be strepsirrhines
-  outgroup <- t$dat |>
+
+## set outgroup to strepsirrhines
+outgroup <- t$dat |>
     filter(`Superfamily` %in% c("Lemuroidea", "Lorisoidea")) |>
     pull(`tip.label`)
-}
-
 t$phy <- root(t$phy, outgroup = outgroup, resolve.root = TRUE) # reroot the tree
 phy <- t$phy
 is.rooted.phylo(phy) # check if it's rooted
 is.binary(phy) # check if it's binary
+
+## rotate some nodes for visualization
 phy <- rotateNodes(phy, 219)
-phy <- rotateNodes(phy, 220)
 phy <- rotateNodes(phy, 310)
 phy <- rotateNodes(phy, 325)
 t$phy <- phy
@@ -855,7 +877,7 @@ legend("topright",
        fill = colors,
        title = "Character States")
 
-# save figure this as a high resolution PNG file 1200 x 900px
+# save figure this as a high resolution PNG file 1100 x 900px
 
 rm(list = ls())
 
@@ -875,7 +897,7 @@ res <- res |>
   filter(value != 0) |>
   arrange(dataset) |>
   mutate(outgroup = if_else(str_detect(`dataset`, "outgroup"), "outgroup", "no outgroup")) |>
-  mutate(phylo = if_else(outgroup == "outgroup", paste0(phylo, " + outgroup"), paste0(phylo, " + no outgroup"))) |>
+  mutate(phylo = if_else(outgroup == "outgroup", paste0(phylo, " phylogeny\n+ outgroup"), paste0(phylo, " phylogeny\n+ no outgroup"))) |>
   mutate(name = if_else(`name` == "MkDG", "D-G", `name`)) |>
   mutate(name = if_else(`name` == "MkDP", "D-P", `name`)) |>
   mutate(name = if_else(`name` == "MkG", "G", `name`)) |>
@@ -888,9 +910,9 @@ res <- res |>
 
 res$phylo <- factor(
   res$phylo,
-  levels = c("Olivier et al + no outgroup",
-             "Kuderna et al + no outgroup",
-             "Kuderna et al + outgroup"))
+  levels = c("Olivier et al phylogeny\n+ no outgroup",
+             "Kuderna et al phylogeny\n+ no outgroup",
+             "Kuderna et al phylogeny\n+ outgroup"))
 
 res <- res |>
   mutate(dataset = str_replace(`dataset`, " \\+ outgroup", ""))
@@ -915,11 +937,12 @@ p <- ggplot(res, aes(x="", y=value, fill=name)) +
   scale_fill_manual(values = colors) +
   facet_grid(phylo ~ dataset, switch = "y") +
   geom_label_repel(aes(y = ypos, label = name, , color = factor(name)), size = 4.5, nudge_x = 1) +
-  scale_colour_manual(values = c("black", "black", "white","black", "black"))
+  scale_colour_manual(values = c("black", "black", "grey","black", "black"))
 
 p
 
+# save figure this as a high resolution PNG file 1200 x 900px
+
 write_csv(res, "res.csv")
 
-rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree", "Olivier_et_al_tree_res", "Olivier_et_al_tree", "root_pies", "summary", "res")))
-
+rm(list=ls())
