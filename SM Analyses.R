@@ -287,6 +287,7 @@ d[[10]] <- combined_data |>
   mutate(`character_data` = if_else(`Species` == "Pongo_pygmaeus", "D-G", `character_data`))
 s[[10]] <- "Müller & Thalmann 5 state + outgroup"
 
+write_csv(d[[1]], "Olivier_et_al_data.csv")
 rm(list = setdiff(ls(), c("d", "s")))
 
 # ASR using Kuderna et al phylogeny ----
@@ -756,12 +757,12 @@ rm(list=setdiff(ls(), c("d", "s", "Kuderna_et_al_tree_res", "Kuderna_et_al_tree"
 ## start with multiple trees to capture uncertainty
 tree_file <- "Olivier_et_al_phylogeny.nex"
 trees = read.nexus(tree_file)
-base_data <- read_csv("base_data.csv", col_names = TRUE)
+data <- read_csv("Olivier_et_al_data.csv", col_names = TRUE)
 
 ## create consensus phylogeny
 tree = phytools::consensus.edges(trees, method="mean.edge", if.absent="zero")
 is.rooted.phylo(tree)
-outgroup <- base_data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
+outgroup <- data |> filter(Superfamily %in% c("Lemuroidea", "Lorisoidea")) |> pull(Species)
 
 tree <- root(tree, outgroup = outgroup, resolve.root = TRUE)
 is.rooted.phylo(tree)
@@ -773,7 +774,7 @@ Olivier_et_al_tree <- tree # hold the original tree
 
 # create treedata.table to merge tree and data and drop tips that are missing in dataset and data that are missing in tree
 tree <- Olivier_et_al_tree
-t <- as.treedata.table(tree = tree, data = as.data.frame(d[[1]]), name_column = "Species")
+t <- as.treedata.table(tree = tree, data = as.data.frame(data), name_column = "Species")
 phy <- t$phy # get the phylogeny
 is.rooted.phylo(phy) # check if it's rooted
 is.binary(phy) # check if it's binary
@@ -850,6 +851,7 @@ tiplabels(
 legend("topright",
        inset = c(0.025),
        legend = state_names,
+       cex = 0.75,
        fill = colors,
        title = "Character States")
 
