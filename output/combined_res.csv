@@ -1,0 +1,95 @@
+dataset,phylo,name,value,outgroup,prop,ypos
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.2981444780170403,no outgroup,0.2981444780170403,0.14907223900852015
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.672887529201004,no outgroup,0.672887529201004,0.6345882426175422
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.02896799278195563,no outgroup,0.02896799278195563,0.985516003609022
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.960870876550679,no outgroup,0.960870876550679,0.4804354382753395
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.03782897136184048,no outgroup,0.03782897136184048,0.9797853622315993
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.00130015208748042,no outgroup,0.00130015208748042,0.9993499239562598
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",S,7.65941716146513e-10,no outgroup,7.65941716146513e-10,3.829708580732565e-10
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.00687542326148798,no outgroup,0.00687542326148798,0.0034377123966857063
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.9931245759725704,no outgroup,0.9931245759725704,0.503437712013715
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",P,0.7945478908168967,no outgroup,0.7945478908168967,0.39727394540844835
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",G,0.06100289394306845,no outgroup,0.06100289394306845,0.8250493377884309
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",D-P,2.0165051250059968e-4,no outgroup,2.0165051250059968e-4,0.8556516100162155
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ no outgroup",D-G,0.14424756472753433,no outgroup,0.14424756472753433,0.9278762176362331
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",S,0.23593670700268105,no outgroup,0.23593670700268105,0.11796835350134052
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",P,0.7295528713645641,no outgroup,0.7295528713645641,0.6007131426849632
+Olivier et al 3 state,"Kuderna et al phylogeny
++ no outgroup",G,0.0345104216327549,no outgroup,0.0345104216327549,0.9827447891836227
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",S,0.03910086982317291,outgroup,0.03910086982317291,0.019550434911586454
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.4345718002558744,outgroup,0.4345718002558744,0.2563867699511101
+Kappeler & Pozzi 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.5263273299209527,outgroup,0.5263273299209527,0.7368363350395237
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.8080492159507816,outgroup,0.8080492159507816,0.4040246079753908
+Lukas & Clutton-Brock 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.1919507840492184,outgroup,0.1919507840492184,0.9040246079753909
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",S,6.997984878410975e-6,outgroup,6.997984878410975e-6,3.4989924392054873e-6
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.03690592648899233,outgroup,0.03690592648899233,0.018459961229374575
+Müller & Thalmann 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.9630870755261292,outgroup,0.9630870755261292,0.5184564622369353
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",P,0.3288650607801003,outgroup,0.3288650607801003,0.16443253039005015
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",G,0.6576174673841045,outgroup,0.6576174673841045,0.6576737944721527
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",D-P,5.033008307127814e-4,outgroup,5.033008307127814e-4,0.9867341785795614
+Müller & Thalmann 5 state,"Kuderna et al phylogeny
++ outgroup",D-G,0.01301417100508248,outgroup,0.01301417100508248,0.993492914497459
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",S,0.04027676480041534,outgroup,0.04027676480041534,0.02013838240020767
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",P,0.4975911313459857,outgroup,0.4975911313459857,0.2890723304734082
+Olivier et al 3 state,"Kuderna et al phylogeny
++ outgroup",G,0.4621321038535991,outgroup,0.4621321038535991,0.7689339480732007
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.7074998090311283,no outgroup,0.7074998090311283,0.35374990451556415
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.2571928451109882,no outgroup,0.2571928451109882,0.8360962315866225
+Kappeler & Pozzi 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.03530734585788342,no outgroup,0.03530734585788342,0.9823463270710583
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.9530092694557644,no outgroup,0.9530092694557644,0.4765046347278822
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.04103847483205652,no outgroup,0.04103847483205652,0.9735285068717926
+Lukas & Clutton-Brock 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.00595225571217902,no outgroup,0.00595225571217902,0.9970238721439104
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",S,3.488916354791087e-7,no outgroup,3.488916354791087e-7,1.7444581773955436e-7
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.3690331464092451,no outgroup,0.3690331464092451,0.18451692209625803
+Müller & Thalmann 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.6309665046991193,no outgroup,0.6309665046991193,0.6845167476504402
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",P,0.3397295509047612,no outgroup,0.3397295509047612,0.1698647754523806
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",G,0.08651077120308158,no outgroup,0.08651077120308158,0.382984936506302
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",D-P,0.26945788749148375,no outgroup,0.26945788749148375,0.5609692658535846
+Müller & Thalmann 5 state,"Olivier et al phylogeny
++ no outgroup",D-G,0.3043017904006735,no outgroup,0.3043017904006735,0.8478491047996632
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",S,0.6117747813173452,no outgroup,0.6117747813173452,0.3058873906586726
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",P,0.32819307341699533,no outgroup,0.32819307341699533,0.7758713180258429
+Olivier et al 3 state,"Olivier et al phylogeny
++ no outgroup",G,0.06003214526565949,no outgroup,0.06003214526565949,0.9699839273671702
