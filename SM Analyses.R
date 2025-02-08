@@ -120,6 +120,7 @@ p <- p + geom_rootedge()
 
 p # save this figure as a PDF file 12in x 9in, open at 400dpi, and save as a PNG file 4800px x 3600px
 saveRDS(p, "output/SM Figure 2.rds")
+ggsave("output/SM Figure 2.pdf", width = 12, height = 9, units = "in", dpi = 400)
 
 # clear workspace
 rm(list = ls())
@@ -904,6 +905,7 @@ legend("topright",
        title = "Character States")
 
 # save this figure as a PDF file 11in x 9in, open at 400dpi, and save as a PNG file 4400px x 3600px
+# need to do this by hand as the plot object is a {base} R plot
 
 # clear workspace
 rm(list = ls())
@@ -979,6 +981,10 @@ p <- ggplot(combined_res, aes(x="", y=value, fill=name)) +
         axis.title.y.left = element_text(size = 14, margin = margin(r = 5)))
 
 p # save this figure as a PDF file 12in x 9in, open at 400dpi, and save as a PNG file 4400px x 3600px
+
+# save the plot object and plot
+saveRDS(p, "output/SM Figure 4.rds")
+ggsave("output/SM Figure 4.pdf", width = 12, height = 9, units = "in", dpi = 400)
 
 write_csaxis.title.y.left = write_csv(combined_res, "output/combined_res.csv")
 
