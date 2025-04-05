@@ -1015,7 +1015,7 @@ colors <- c("blue", "green", "orange")
 state_names <- c("G", "P", "S")
 
 # write this figure as a PDF file 11in x 9in... first create a PDF graphic device
-pdf("output/SM Figure 3.pdf", width = 11, height = 9)
+pdf("output/SM Figure 3.pdf", width = 11, height = 9, bg = "white")
 
 plot.phylo(um_tree,
            type = "fan",
