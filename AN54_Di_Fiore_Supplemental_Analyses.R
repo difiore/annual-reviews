@@ -491,7 +491,7 @@ p
 
 ## Set up data for ASR ----
 ### define a data structure to hold ASR results
-Olivier_et_al_2024_phylogeny_ASR_results <- tibble(dataset = character(),
+Olivier_et_al_2024_Phylogeny_ASR_Results <- tibble(dataset = character(),
                                  ntaxa = numeric(),
                                  ntips = numeric(),
                                  phylo = character(),
@@ -692,10 +692,10 @@ for (i in seq(1, length(d), 2)){
   }
 
   ## store results
-  Olivier_et_al_2024_phylogeny_ASR_results <- bind_rows(Olivier_et_al_2024_phylogeny_ASR_results, r)
+  Olivier_et_al_2024_Phylogeny_ASR_Results <- bind_rows(Olivier_et_al_2024_Phylogeny_ASR_Results, r)
 }
 
-write_csv(Olivier_et_al_2024_phylogeny_ASR_results, "output/Olivier_et_al_2024_phylogeny_ASR_results.csv")
+write_csv(Olivier_et_al_2024_Phylogeny_ASR_Results, "output/Olivier_et_al_2024_Phylogeny_ASR_Results.csv")
 
 ## clear workspace
 rm(list = ls())
@@ -740,7 +740,7 @@ p
 
 ## Set up data for ASR ----
 ### define a data structure to hold ASR results
-Kuderna_et_al_2023_phylogeny_ASR_results <- tibble(dataset = character(),
+Kuderna_et_al_2023_Phylogeny_ASR_Results <- tibble(dataset = character(),
                                  ntaxa = numeric(),
                                  ntips = numeric(),
                                  phylo = character(),
@@ -949,11 +949,11 @@ for (i in seq(1, length(d))){
   }
 
   ## store results
-  Kuderna_et_al_2023_phylogeny_ASR_results <- bind_rows(Kuderna_et_al_2023_phylogeny_ASR_results, r)
+  Kuderna_et_al_2023_Phylogeny_ASR_Results <- bind_rows(Kuderna_et_al_2023_Phylogeny_ASR_Results, r)
 
 }
 
-write_csv(Kuderna_et_al_2023_phylogeny_ASR_results, "output/Kuderna_et_al_2023_phylogeny_ASR_results.csv")
+write_csv(Kuderna_et_al_2023_Phylogeny_ASR_Results, "output/Kuderna_et_al_2023_Phylogeny_ASR_Results.csv")
 
 ## clear workspace
 rm(list = ls())
@@ -1056,14 +1056,14 @@ rm(list = ls())
 
 # Plot SM Figure 4 ----
 ## MRCA posterior probability plots
-Olivier_et_al_2024_phylogeny_ASR_results <- read_csv("output/Olivier_et_al_2024_phylogeny_ASR_results.csv", col_names = TRUE) |>
+Olivier_et_al_2024_Phylogeny_ASR_Results <- read_csv("output/Olivier_et_al_2024_Phylogeny_ASR_Results.csv", col_names = TRUE) |>
   filter(dataset %in% c("Olivier et al (2024) 3 state", "Kappeler & Pozzi (2019) 3 state (S<P<G)", "Lukas & Clutton-Brock (2013) 3 state", "Shultz et al (2011) 3 state (S<P<G)", "Müller & Thalmann (2000) 3 state (S<P<G)", "Müller & Thalmann (2000) 5 state (S<P<G)", "Kappeler & Pozzi (2019) 3 state (G>P>S)", "Shultz et al (2011) 3 state (G>P>S)", "Müller & Thalmann (2000) 3 state (G>P>S)", "Müller & Thalmann (2000) 5 state (G>P>S)")) |>
   filter(method1 == "Mk")
 
-Kuderna_et_al_2023_phylogeny_ASR_results <- read_csv("output/Kuderna_et_al_2023_phylogeny_ASR_results.csv", col_names = TRUE) |>
+Kuderna_et_al_2023_Phylogeny_ASR_Results <- read_csv("output/Kuderna_et_al_2023_Phylogeny_ASR_Results.csv", col_names = TRUE) |>
   filter(method1 == "Mk")
 
-combined_ASR_results <- bind_rows(Olivier_et_al_2024_phylogeny_ASR_results, Kuderna_et_al_2023_phylogeny_ASR_results)
+combined_ASR_results <- bind_rows(Olivier_et_al_2024_Phylogeny_ASR_Results, Kuderna_et_al_2023_Phylogeny_ASR_Results)
 combined_ASR_results <- pivot_longer(combined_ASR_results, cols = c("MkDG", "MkDP", "MkG", "MkP", "MkS")) |>
   select(dataset, phylo, name, value)
 
@@ -1135,8 +1135,8 @@ p <- ggplot(combined_ASR_results |> filter(!str_detect(`dataset`, "(G>P>S)")), a
 p ## save this figure as a PDF file 12in x 9in, open at 400dpi, and save as a PNG file 4400px x 3600px
 
 ## save the plot object and plot
-saveRDS(p, "output/SM Figure 4a.rds")
-ggsave("output/SM Figure 4a.pdf", width = 12, height = 9, units = "in", dpi = 400)
+saveRDS(p, "output/Supplemental Figure 4a.rds")
+ggsave("output/Supplemental Figure 4a.pdf", width = 12, height = 9, units = "in", dpi = 400)
 
 ## Supplemental Figure 4b (G>P>S results)
 p <- ggplot(combined_ASR_results |> filter(str_detect(`dataset`, "(G>P>S)")), aes(x="", y=value, fill=name)) +
@@ -1163,8 +1163,8 @@ p <- ggplot(combined_ASR_results |> filter(str_detect(`dataset`, "(G>P>S)")), ae
 p ## save this figure as a PDF file 12in x 9in, open at 400dpi, and save as a PNG file 4400px x 3600px
 
 ## save the plot object and plot
-saveRDS(p, "output/SM Figure 4b.rds")
-ggsave("output/SM Figure 4b.pdf", width = 12, height = 9, units = "in", dpi = 400)
+saveRDS(p, "output/Supplemental Figure 4b.rds")
+ggsave("output/Supplemental Figure 4b.pdf", width = 12, height = 9, units = "in", dpi = 400)
 
 write_csv(combined_ASR_results, "output/combined_ASR_results.csv")
 
